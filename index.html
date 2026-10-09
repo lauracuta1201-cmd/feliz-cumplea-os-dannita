@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Una sorpresa para ti</title>
+  <meta name="theme-color" content="#f7efe2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Decoración de fondo: flores, corazones y estrellitas (común a todas las pantallas) -->
+  <div class="decor" aria-hidden="true">
+    <span class="deco flower d1">✿</span>
+    <span class="deco heart d2">♡</span>
+    <span class="deco star d3">✦</span>
+    <span class="deco flower d4">❀</span>
+    <span class="deco heart d5">♡</span>
+    <span class="deco star d6">✧</span>
+    <span class="deco flower d7">✿</span>
+    <span class="deco star d8">✦</span>
+    <span class="deco heart d9">♡</span>
+    <span class="deco flower d10">❀</span>
+    <span class="deco star d11">✧</span>
+    <span class="deco heart d12">♡</span>
+  </div>
+
+  <!-- ===================== PANTALLA 1: LA CARTA (portada, sobre y carta) ===================== -->
+  <div class="pantalla pantalla-carta" id="pantalla-carta">
+    <main class="portada">
+
+      <!-- Texto superior -->
+      <p class="eyebrow">Una sorpresa para ti</p>
+      <div class="divider" aria-hidden="true"><span>✿</span></div>
+
+      <!-- Sobre interactivo -->
+      <div class="scene">
+        <div class="envelope" id="envelope" role="button" tabindex="0"
+             aria-expanded="false"
+             aria-label="Sobre de sorpresa. Toca o presiona Enter para abrirlo">
+
+          <!-- Parte trasera del sobre -->
+          <div class="env-back"></div>
+
+          <!-- Carta interior -->
+          <div class="letter" aria-hidden="true">
+            <span class="letter-heart">♡</span>
+            <span class="letter-line"></span>
+            <span class="letter-line short"></span>
+            <span class="letter-line"></span>
+          </div>
+
+          <!-- Parte frontal (bolsillo) -->
+          <div class="env-front"></div>
+
+          <!-- Solapa superior -->
+          <div class="flap"></div>
+
+          <!-- Sello de corazón -->
+          <div class="seal" aria-hidden="true"><span>♥</span></div>
+        </div>
+      </div>
+
+      <!-- Mensaje debajo del sobre -->
+      <p class="mensaje">Tengo algo especial para ti, Dannita ♡</p>
+      <p class="hint" id="hint">Toca el sobre para abrirlo</p>
+
+      <!-- Mensaje final tras abrir -->
+      <p class="final" id="final" role="status" aria-live="polite">¡La sorpresa continúa pronto!</p>
+
+      <!-- Botón «Descúbrelo»: aparece cuando el sobre termina de abrirse -->
+      <div class="accion" id="accion">
+        <button type="button" class="btn-descubrir" id="descubrir"
+                aria-controls="pantalla-album" aria-expanded="false" hidden>
+          Descúbrelo ♡
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== PANTALLA 2: ÁLBUM DE RECUERDOS ===================== -->
+  <!--
+    CÓMO PERSONALIZAR:
+    1. Crea una carpeta llamada "fotos" junto a index.html.
+    2. Guarda tus imágenes con los nombres foto-1.jpg, foto-2.jpg, ... (o cambia el "src" de cada <img>).
+    3. Edita el título (<h3 class="rec-titulo">) y el mensaje (<p class="rec-mensaje">) de cada recuerdo.
+    4. Para agregar o quitar recuerdos, copia o borra un bloque <figure> completo (recomendado: entre 5 y 8).
+    5. Formas de la foto: foto-vertical, foto-cuadrada o foto-horizontal.
+    6. Inclinación: cambia el valor de --rot (por ejemplo -3deg, 2deg, 0deg).
+  -->
+  <div class="pantalla pantalla-album oculta" id="pantalla-album" hidden inert aria-hidden="true">
+    <section class="album" id="album" aria-labelledby="album-titulo">
+
+      <!-- Botón para volver a la carta (se mantiene visible al desplazarse dentro del álbum) -->
+      <button type="button" class="btn-volver btn-volver-superior">♡ Volver a la carta</button>
+
+      <header class="album-cabecera">
+        <p class="album-kicker">Álbum de recuerdos</p>
+        <h2 class="album-titulo" id="album-titulo" tabindex="-1">Momentos que guardo contigo</h2>
+        <div class="divider" aria-hidden="true"><span>♡</span></div>
+        <p class="album-sub">Cada foto guarda un pedacito de nuestra amistad ♡</p>
+      </header>
+
+      <div class="galeria">
+
+        <!-- ========== RECUERDO 1 ========== -->
+        <figure class="polaroid foto-vertical" style="--rot: -2.5deg;">
+          <div class="foto" data-placeholder="Tu foto 1">
+            <!-- FOTO 1: cambia el src por tu imagen -->
+            <img src="fotos/foto-1.jpg" alt="Recuerdo 1 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 1 -->
+            <h3 class="rec-titulo">Un recuerdo contigo</h3>
+            <!-- MENSAJE 1 -->
+            <p class="rec-mensaje">Hay personas que hacen más bonitos los días, y tú eres una de ellas.</p>
+          </figcaption>
+        </figure>
+
+        <!-- ========== RECUERDO 2 ========== -->
+        <figure class="polaroid foto-cuadrada" style="--rot: 2deg;">
+          <div class="foto" data-placeholder="Tu foto 2">
+            <!-- FOTO 2: cambia el src por tu imagen -->
+            <img src="fotos/foto-2.jpg" alt="Recuerdo 2 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 2 -->
+            <h3 class="rec-titulo">Para guardar</h3>
+            <!-- MENSAJE 2 -->
+            <p class="rec-mensaje">Cada recuerdo a tu lado es un pequeño tesoro que quiero conservar.</p>
+          </figcaption>
+        </figure>
+
+        <!-- ========== RECUERDO 3 ========== -->
+        <figure class="polaroid foto-horizontal" style="--rot: -1.5deg;">
+          <div class="foto" data-placeholder="Tu foto 3">
+            <!-- FOTO 3: cambia el src por tu imagen -->
+            <img src="fotos/foto-3.jpg" alt="Recuerdo 3 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 3 -->
+            <h3 class="rec-titulo">Amistad de verdad</h3>
+            <!-- MENSAJE 3 -->
+            <p class="rec-mensaje">Gracias por ser una amiga en quien siempre se puede confiar.</p>
+          </figcaption>
+        </figure>
+
+        <!-- ========== RECUERDO 4 ========== -->
+        <figure class="polaroid foto-vertical" style="--rot: 3deg;">
+          <div class="foto" data-placeholder="Tu foto 4">
+            <!-- FOTO 4: cambia el src por tu imagen -->
+            <img src="fotos/foto-4.jpg" alt="Recuerdo 4 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 4 -->
+            <h3 class="rec-titulo">Sonrisas que quedan</h3>
+            <!-- MENSAJE 4 -->
+            <p class="rec-mensaje">Las mejores historias se escriben en buena compañía.</p>
+          </figcaption>
+        </figure>
+
+        <!-- ========== RECUERDO 5 ========== -->
+        <figure class="polaroid foto-cuadrada" style="--rot: -2deg;">
+          <div class="foto" data-placeholder="Tu foto 5">
+            <!-- FOTO 5: cambia el src por tu imagen -->
+            <img src="fotos/foto-5.jpg" alt="Recuerdo 5 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 5 -->
+            <h3 class="rec-titulo">Contigo, siempre</h3>
+            <!-- MENSAJE 5 -->
+            <p class="rec-mensaje">Tu amistad es de esas cosas que se agradecen en silencio y se celebran hoy.</p>
+          </figcaption>
+        </figure>
+
+        <!-- ========== RECUERDO 6 ========== -->
+        <figure class="polaroid foto-horizontal" style="--rot: 1.5deg;">
+          <div class="foto" data-placeholder="Tu foto 6">
+            <!-- FOTO 6: cambia el src por tu imagen -->
+            <img src="fotos/foto-6.jpg" alt="Recuerdo 6 con Dannita" loading="lazy">
+          </div>
+          <figcaption>
+            <!-- TÍTULO 6 -->
+            <h3 class="rec-titulo">Feliz cumpleaños</h3>
+            <!-- MENSAJE 6 -->
+            <p class="rec-mensaje">Que este día esté lleno de todo lo bonito que mereces, Dannita ♡</p>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <!-- Cierre del álbum con segundo botón para volver -->
+      <div class="album-cierre">
+        <div class="album-cierre-deco" aria-hidden="true">
+          <span>✿</span><span>♡</span><span>✦</span>
+        </div>
+        <button type="button" class="btn-volver">♡ Volver a la carta</button>
+      </div>
+
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
