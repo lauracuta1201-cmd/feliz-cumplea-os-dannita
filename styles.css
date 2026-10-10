@@ -1379,6 +1379,49 @@ body {
 }
 .btn-volver-vhs:hover { opacity: 1; }
 
+/* Botón «Saltar video ♡»: arriba a la derecha, sin tapar los controles del video.
+   Aparece cuando la cinta termina su transición (el JavaScript agrega la clase .vhs-lista). */
+.vhs-saltar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 7;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1.5px solid var(--rosa-oscuro);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  color: var(--rosa-profundo);
+  background: rgba(255, 253, 248, 0.88);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  box-shadow: 0 8px 18px rgba(181, 106, 112, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s, transform 0.3s ease, background 0.3s ease;
+}
+.vhs-lista .vhs-saltar {
+  opacity: 0.92;
+  visibility: visible;
+  transition: opacity 0.9s ease 0.2s, visibility 0s linear 0s, transform 0.3s ease, background 0.3s ease;
+}
+.vhs-lista .vhs-saltar:hover {
+  opacity: 1;
+  background: #fff;
+  transform: translateY(-2px);
+}
+.vhs-lista .vhs-saltar:active { transform: scale(0.98); }
+.vhs-saltar:focus-visible {
+  outline: 3px dashed var(--rosa-profundo);
+  outline-offset: 4px;
+}
+
 /* Escenas apiladas en el mismo lugar */
 .vhs-escena {
   grid-area: 1 / 1;
@@ -1976,7 +2019,8 @@ body {
   .btn-libro { min-width: 200px; padding: 12px 24px; }
   .btn-ultima { padding: 12px 22px; font-size: 0.95rem; }
   .btn-volver { padding: 10px 18px; font-size: 0.92rem; }
-  .btn-volver-vhs { padding: 8px 14px; font-size: 0.85rem; }
+  .btn-volver-vhs { padding: 8px 12px; font-size: 0.82rem; }
+  .vhs-saltar { padding: 8px 12px; font-size: 0.82rem; }
   .libro-pantalla { padding-left: 12px; padding-right: 12px; }
   .btn-pagina { min-width: 94px; padding: 10px 12px; font-size: 0.92rem; }
   .libro-controles { gap: 8px; }
@@ -2051,4 +2095,203 @@ body {
   .vhs-secundaria { opacity: 1; }
   .vhs-continuar { opacity: 1; visibility: visible; }
   .vhs-cinta { display: none; }
+}
+
+/* ===================== DEDICATORIA: BLOQUEO + LIBRO ===================== */
+
+.pantalla-ded {
+  --vino: #6e2535;
+  --vino-2: #8f3a4d;
+  --vino-oscuro: #4f1a27;
+  --papel-ded: #fbf3e4;
+  --alto: 100vh;
+  background: radial-gradient(ellipse at 50% 40%, #fbf1e1 0%, #f0dcc3 62%, #d9bda3 100%);
+}
+@supports (height: 100dvh) { .pantalla-ded { --alto: 100dvh; } }
+
+.ded-escena {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 16px;
+}
+.ded-escena [hidden] { display: none !important; }
+
+/* ----- Pantalla de bloqueo ----- */
+.ded-cerradura {
+  position: relative;
+  width: min(92vw, 410px);
+  padding: 36px 24px 28px;
+  text-align: center;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, var(--papel-ded));
+  box-shadow:
+    inset 0 0 0 6px var(--papel-ded),
+    inset 0 0 0 7.5px rgba(110, 37, 53, 0.35),
+    0 22px 44px rgba(79, 26, 39, 0.28);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.ded-cerradura.saliendo { opacity: 0; transform: translateY(-10px) scale(0.98); pointer-events: none; }
+
+/* Pequeños adornos en las esquinas */
+.ded-esq { position: absolute; font-size: 0.95rem; color: var(--dorado); line-height: 1; }
+.ded-esq.e1 { top: 14px; left: 16px; }
+.ded-esq.e2 { top: 14px; right: 16px; }
+.ded-esq.e3 { bottom: 14px; left: 16px; }
+.ded-esq.e4 { bottom: 14px; right: 16px; }
+.ded-div { margin: 4px 0 0; color: var(--dorado); letter-spacing: 0.5em; font-size: 0.9rem; }
+
+.ded-sello {
+  width: 62px; height: 62px; margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 1.9rem; color: #fff1e6;
+  background: radial-gradient(circle at 35% 30%, #a8485c, var(--vino) 72%);
+  box-shadow: 0 6px 14px rgba(79, 26, 39, 0.35), inset 0 -3px 6px rgba(40, 10, 20, 0.3);
+}
+.ded-titulo {
+  margin: 0;
+  font-family: 'Great Vibes', cursive; font-weight: 400;
+  font-size: clamp(2.1rem, 9vw, 2.8rem); line-height: 1.15;
+  color: var(--vino); outline: none; overflow-wrap: break-word;
+}
+.ded-sub {
+  margin: 8px 0 18px;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600;
+  font-size: 1.2rem; line-height: 1.4; color: var(--texto);
+}
+.ded-clave { display: flex; justify-content: center; gap: 10px; }
+.ded-clave input {
+  width: 52px; height: 64px; padding: 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 2rem;
+  color: var(--vino);
+  background: #fffdf8;
+  border: 1.5px solid var(--vino-2); border-radius: 8px;
+  caret-color: var(--vino);
+}
+.ded-clave input:focus { outline: none; border-color: var(--vino); box-shadow: 0 0 0 3px rgba(143, 58, 77, 0.25); }
+.ded-clave.error { animation: dedTemblor 0.45s ease; }
+@keyframes dedTemblor {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); } 40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); } 80% { transform: translateX(3px); }
+}
+.ded-msg {
+  min-height: 3.4em; margin: 14px 0 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600;
+  font-size: 1.15rem; line-height: 1.35; color: var(--vino-2);
+}
+.ded-pista {
+  margin: 14px 0 0;
+  font-family: 'Caveat', cursive; font-weight: 600; font-size: 1.25rem; color: var(--vino-2); opacity: 0.85;
+}
+
+.ded-btn {
+  min-height: 50px; padding: 11px 32px; border: none; border-radius: 999px; cursor: pointer;
+  font-family: 'Quicksand', 'Segoe UI', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.06em;
+  color: #fff3ea;
+  background: linear-gradient(160deg, #a8485c, var(--vino));
+  box-shadow: 0 10px 22px rgba(79, 26, 39, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.25);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+.ded-btn:hover { transform: translateY(-2px); }
+.ded-btn:active { transform: scale(0.98); }
+.ded-btn:focus-visible { outline: 3px dashed var(--vino); outline-offset: 4px; }
+.ded-btn.sec {
+  color: var(--vino); background: rgba(255, 253, 248, 0.9);
+  border: 1.5px solid var(--vino-2); box-shadow: 0 6px 14px rgba(79, 26, 39, 0.15);
+}
+.ded-btn.sec:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+/* ----- Libro ----- */
+.ded-libro-wrap {
+  --w: min(90vw, 470px);
+  --h: clamp(380px, calc(var(--alto) - 190px), 640px);
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  opacity: 0; transform: translateY(14px) scale(0.98);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.ded-libro-wrap.visible { opacity: 1; transform: none; }
+
+.ded-libro { position: relative; width: var(--w); height: var(--h); }
+
+.ded-hoja {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  padding: 30px 28px 38px 34px;
+  border-radius: 4px 10px 10px 4px;
+  background-color: #fbf2e1;
+  background-image:
+    linear-gradient(90deg, rgba(110, 37, 53, 0.16), rgba(110, 37, 53, 0) 7%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 35%);
+  box-shadow:
+    inset 0 0 0 5px #fbf2e1,
+    inset 0 0 0 6px rgba(110, 37, 53, 0.3),
+    0 2px 0 #efe0c8, 0 5px 0 #f8ecd8, 0 7px 0 #e8d6bc,
+    0 24px 40px rgba(79, 26, 39, 0.28);
+  transition: opacity 0.6s ease;
+}
+.ded-medida { visibility: hidden; pointer-events: none; }
+.ded-libro.cerrando .ded-hoja { opacity: 0; }
+
+.ded-flor { position: absolute; top: 12px; right: 18px; font-size: 0.9rem; color: var(--vino-2); opacity: 0.5; }
+.ded-num {
+  position: absolute; left: 0; right: 0; bottom: 12px; text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 0.95rem; color: var(--vino-2);
+}
+
+.ded-texto {
+  flex: 1; min-height: 0; overflow: hidden;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+  font-size: clamp(1.08rem, 4.3vw, 1.28rem); line-height: 1.5;
+  color: #4f1a27;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.ded-texto.fuera { opacity: 0; transform: translateX(-12px); }
+.ded-texto p { margin: 0 0 0.75em; text-indent: 1.4em; overflow-wrap: break-word; }
+.ded-texto p.cont { text-indent: 0; }
+.ded-texto p:last-child { margin-bottom: 0; }
+.ded-texto .w { display: inline-block; white-space: nowrap; }
+.ded-texto .c { opacity: 0; transition: opacity 0.3s ease; }
+.ded-texto .c.on { opacity: 1; }
+.ded-texto .marcador { background: rgba(214, 178, 122, 0.45); border-radius: 3px; }
+
+/* Cierre final */
+.ded-cierre {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  padding: 28px; text-align: center;
+  border-radius: 4px 10px 10px 4px;
+  background: linear-gradient(180deg, #fffaf0, #f8ecd6);
+  box-shadow: inset 0 0 0 5px #fbf2e1, inset 0 0 0 6px rgba(110, 37, 53, 0.3), 0 24px 40px rgba(79, 26, 39, 0.28);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 1s ease, visibility 0s linear 1s;
+}
+.ded-libro.cerrando .ded-cierre { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 1.2s ease 0.4s, visibility 0s; }
+.ded-cierre-deco { color: var(--dorado); letter-spacing: 0.45em; font-size: 1.1rem; }
+.ded-cierre-fel { margin: 0; font-family: 'Great Vibes', cursive; font-size: clamp(2.2rem, 10vw, 3.2rem); line-height: 1.15; color: var(--vino); }
+.ded-cierre-con { margin: 6px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; font-size: 1.3rem; color: var(--texto); }
+.ded-cierre-firma { margin: 0 0 10px; font-family: 'Caveat', cursive; font-weight: 600; font-size: 2rem; color: var(--vino); }
+
+/* Controles */
+.ded-pie { width: var(--w); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: opacity 0.5s ease; }
+.ded-pie.oculto { opacity: 0; visibility: hidden; }
+.ded-accion { width: 100%; min-height: 52px; display: grid; justify-items: center; align-items: center; }
+.ded-accion > * { grid-area: 1 / 1; }
+.ded-hint { margin: 0; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--texto); opacity: 0.8; text-align: center; }
+.ded-hint.off, .ded-continuar.off { opacity: 0; visibility: hidden; }
+.ded-continuar { transition: opacity 0.6s ease; }
+.ded-nav { display: flex; align-items: center; gap: 14px; }
+.ded-ind { min-width: 60px; text-align: center; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 1.1rem; color: var(--vino); }
+.ded-nav .ded-btn { min-height: 42px; padding: 7px 16px; font-size: 0.9rem; }
+
+@media (max-width: 380px) {
+  .ded-clave input { width: 46px; height: 58px; }
+  .ded-clave { gap: 8px; }
+  .ded-hoja { padding: 26px 22px 36px 28px; }
 }

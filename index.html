@@ -1,562 +1,520 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Una sorpresa para ti</title>
-  <meta name="theme-color" content="#f7efe2">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Quicksand:wght@400;500;600&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Una sorpresa para ti</title>
+    <meta name="theme-color" content="#f7efe2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Quicksand:wght@400;500;600&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <!-- Decoración de fondo: flores, corazones y estrellitas (común a todas las pantallas) -->
-  <div class="decor" aria-hidden="true">
-    <span class="deco flower d1">✿</span>
-    <span class="deco heart d2">♡</span>
-    <span class="deco star d3">✦</span>
-    <span class="deco flower d4">❀</span>
-    <span class="deco heart d5">♡</span>
-    <span class="deco star d6">✧</span>
-    <span class="deco flower d7">✿</span>
-    <span class="deco star d8">✦</span>
-    <span class="deco heart d9">♡</span>
-    <span class="deco flower d10">❀</span>
-    <span class="deco star d11">✧</span>
-    <span class="deco heart d12">♡</span>
-  </div>
+    <!-- Decoración de fondo: flores, corazones y estrellitas (común a todas las pantallas) -->
+    <div class="decor" aria-hidden="true">
+        <span class="deco flower d1">✿</span>
+        <span class="deco heart d2">♡</span>
+        <span class="deco star d3">✦</span>
+        <span class="deco flower d4">❀</span>
+        <span class="deco heart d5">♡</span>
+        <span class="deco star d6">✧</span>
+        <span class="deco flower d7">✿</span>
+        <span class="deco star d8">✦</span>
+        <span class="deco heart d9">♡</span>
+        <span class="deco flower d10">❀</span>
+        <span class="deco star d11">✧</span>
+        <span class="deco heart d12">♡</span>
+    </div>
 
-  <!-- ===================== PANTALLA 1: LA CARTA (portada, sobre y carta) ===================== -->
-  <div class="pantalla pantalla-carta" id="pantalla-carta">
-    <main class="portada">
+    <!-- ===================== PANTALLA 1: LA CARTA (portada, sobre y carta) ===================== -->
+    <div class="pantalla pantalla-carta" id="pantalla-carta">
+        <main class="portada">
 
-      <!-- Texto superior -->
-      <p class="eyebrow">Una sorpresa para ti</p>
-      <div class="divider" aria-hidden="true"><span>✿</span></div>
+            <!-- Texto superior -->
+            <p class="eyebrow">Una sorpresa para ti</p>
+            <div class="divider" aria-hidden="true"><span>✿</span></div>
 
-      <!-- Sobre interactivo -->
-      <div class="scene">
-        <div class="envelope" id="envelope" role="button" tabindex="0"
-             aria-expanded="false"
-             aria-label="Sobre de sorpresa. Toca o presiona Enter para abrirlo">
+            <!-- Sobre interactivo -->
+            <div class="scene">
+                <div class="envelope" id="envelope" role="button" tabindex="0" aria-expanded="false"
+                    aria-label="Sobre de sorpresa. Toca o presiona Enter para abrirlo">
 
-          <!-- Parte trasera del sobre -->
-          <div class="env-back"></div>
+                    <!-- Parte trasera del sobre -->
+                    <div class="env-back"></div>
 
-          <!-- Carta interior -->
-          <div class="letter" aria-hidden="true">
-            <span class="letter-heart">♡</span>
-            <span class="letter-line"></span>
-            <span class="letter-line short"></span>
-            <span class="letter-line"></span>
-          </div>
+                    <!-- Carta interior -->
+                    <div class="letter" aria-hidden="true">
+                        <span class="letter-heart">♡</span>
+                        <span class="letter-line"></span>
+                        <span class="letter-line short"></span>
+                        <span class="letter-line"></span>
+                    </div>
 
-          <!-- Parte frontal (bolsillo) -->
-          <div class="env-front"></div>
+                    <!-- Parte frontal (bolsillo) -->
+                    <div class="env-front"></div>
 
-          <!-- Solapa superior -->
-          <div class="flap"></div>
+                    <!-- Solapa superior -->
+                    <div class="flap"></div>
 
-          <!-- Sello de corazón -->
-          <div class="seal" aria-hidden="true"><span>♥</span></div>
-        </div>
-      </div>
+                    <!-- Sello de corazón -->
+                    <div class="seal" aria-hidden="true"><span>♥</span></div>
+                </div>
+            </div>
 
-      <!-- Mensaje debajo del sobre -->
-      <p class="mensaje">Tengo algo especial para ti, Dannita ♡</p>
-      <p class="hint" id="hint">Toca el sobre para abrirlo</p>
+            <!-- Mensaje debajo del sobre -->
+            <p class="mensaje">Tengo algo especial para ti, Dannita ♡</p>
+            <p class="hint" id="hint">Toca el sobre para abrirlo</p>
 
-      <!-- Mensaje final tras abrir -->
-      <p class="final" id="final" role="status" aria-live="polite">¡La sorpresa continúa pronto!</p>
+            <!-- Mensaje final tras abrir -->
+            <p class="final" id="final" role="status" aria-live="polite">¡La sorpresa continúa pronto!</p>
 
-      <!-- Botón «Descúbrelo»: aparece cuando el sobre termina de abrirse -->
-      <div class="accion" id="accion">
-        <button type="button" class="btn-descubrir" id="descubrir"
-                aria-controls="pantalla-album" aria-expanded="false" hidden>
-          Descúbrelo ♡
-        </button>
-      </div>
+            <!-- Botón «Descúbrelo»: aparece cuando el sobre termina de abrirse -->
+            <div class="accion" id="accion">
+                <button type="button" class="btn-descubrir" id="descubrir" aria-controls="pantalla-album"
+                    aria-expanded="false" hidden>
+                    Descúbrelo ♡
+                </button>
+            </div>
 
-    </main>
-  </div>
+        </main>
+    </div>
 
-  <!-- ===================== PANTALLA 2: ÁLBUM DE RECUERDOS ===================== -->
-  <!--
+    <!-- ===================== PANTALLA 2: ÁLBUM DE RECUERDOS ===================== -->
+    <!--
     CÓMO PERSONALIZAR:
-    1. Crea una carpeta llamada "fotos" junto a index.html.
-    2. Guarda tus imágenes con los nombres foto-1.jpg, foto-2.jpg, ... (o cambia el "src" de cada <img>).
+    1. Crea una carpeta llamada "images" junto a index.html.
+    2. Guarda tus imágenes con los nombres que ya tienes (IMAGEN1.JPG, etc.) o cambia el "src".
     3. Edita el título (<h3 class="rec-titulo">) y el mensaje (<p class="rec-mensaje">) de cada recuerdo.
-    4. Para agregar o quitar recuerdos, copia o borra un bloque <figure> completo (recomendado: entre 5 y 8).
+    4. Para agregar o quitar recuerdos, copia o borra un bloque <figure> completo.
     5. Formas de la foto: foto-vertical, foto-cuadrada o foto-horizontal.
     6. Inclinación: cambia el valor de --rot (por ejemplo -3deg, 2deg, 0deg).
   -->
-  <div class="pantalla pantalla-album oculta" id="pantalla-album" hidden inert aria-hidden="true">
-    <section class="album" id="album" aria-labelledby="album-titulo">
+    <div class="pantalla pantalla-album oculta" id="pantalla-album" hidden inert aria-hidden="true">
+        <section class="album" id="album" aria-labelledby="album-titulo">
 
-      <!-- Botón para volver a la carta (se mantiene visible al desplazarse dentro del álbum) -->
-      <button type="button" class="btn-volver btn-volver-superior">♡ Volver a la carta</button>
+            <!-- Botón para volver a la carta (se mantiene visible al desplazarse dentro del álbum) -->
+            <button type="button" class="btn-volver btn-volver-superior">♡ Volver a la carta</button>
 
-      <header class="album-cabecera">
-        <p class="album-kicker">Álbum de recuerdos</p>
-        <h2 class="album-titulo" id="album-titulo" tabindex="-1">Momentos que guardo contigo</h2>
-        <div class="divider" aria-hidden="true"><span>♡</span></div>
-        <p class="album-sub">Cada foto guarda un pedacito de nuestra amistad ♡</p>
-      </header>
+            <header class="album-cabecera">
+                <p class="album-kicker">Álbum de recuerdos</p>
+                <h2 class="album-titulo" id="album-titulo" tabindex="-1">Momentos que guardo contigo</h2>
+                <div class="divider" aria-hidden="true"><span>♡</span></div>
+                <p class="album-sub">Cada foto guarda un pedacito de nuestra amistad ♡</p>
+            </header>
 
-      <div class="galeria">
+            <div class="galeria">
 
-        <!-- ========== RECUERDO 1 ========== -->
-        <figure class="polaroid foto-vertical" style="--rot: -2.5deg;">
-          <div class="foto" data-placeholder="Tu foto 1">
-            <!-- FOTO 1: cambia el src por tu imagen -->
-            <img src="images/IMAGEN1.JPG" alt="Recuerdo 1 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 1 -->
-            <h3 class="rec-titulo">Un recuerdo contigo</h3>
-            <!-- MENSAJE 1 -->
-            <p class="rec-mensaje">Hay personas que hacen más bonitos los días, y tú eres una de ellas.</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 1 ========== -->
+                <figure class="polaroid foto-vertical" style="--rot: -2.5deg;">
+                    <div class="foto" data-placeholder="Tu foto 1">
+                        <img src="images/IMAGEN1.JPG" alt="Recuerdo 1 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Un recuerdo contigo</h3>
+                        <p class="rec-mensaje">Hay personas que hacen más bonitos los días, y tú eres una de ellas.</p>
+                    </figcaption>
+                </figure>
 
-        <!-- ========== RECUERDO 2 ========== -->
-        <figure class="polaroid foto-cuadrada" style="--rot: 2deg;">
-          <div class="foto" data-placeholder="Tu foto 2">
-            <!-- FOTO 2: cambia el src por tu imagen -->
-            <img src="images/IMAGEN2.PNG" alt="Recuerdo 2 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 2 -->
-            <h3 class="rec-titulo">Y la verdad</h3>
-            <!-- MENSAJE 2 -->
-            <p class="rec-mensaje">Nose como explicarte que ahora mi vida es más bonita porque tú estás en ella.</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 2 ========== -->
+                <figure class="polaroid foto-cuadrada" style="--rot: 2deg;">
+                    <div class="foto" data-placeholder="Tu foto 2">
+                        <img src="images/IMAGEN2.PNG" alt="Recuerdo 2 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Y la verdad</h3>
+                        <p class="rec-mensaje">Nose como explicarte que ahora mi vida es más bonita porque tú estás en
+                            ella.</p>
+                    </figcaption>
+                </figure>
 
-        <!-- ========== RECUERDO 3 ========== -->
-        <figure class="polaroid foto-horizontal" style="--rot: -1.5deg;">
-          <div class="foto" data-placeholder="Tu foto 3">
-            <!-- FOTO 3: cambia el src por tu imagen -->
-            <img src="images/IMAGEN3.jpeg" alt="Recuerdo 3 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 3 -->
-            <h3 class="rec-titulo">Tu amistad</h3>
-            <!-- MENSAJE 3 -->
-            <p class="rec-mensaje">Eres esa amiga en la que siempre confio sin importar que.</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 3 ========== -->
+                <figure class="polaroid foto-horizontal" style="--rot: -1.5deg;">
+                    <div class="foto" data-placeholder="Tu foto 3">
+                        <img src="images/IMAGEN3.jpeg" alt="Recuerdo 3 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Tu amistad</h3>
+                        <p class="rec-mensaje">Eres esa amiga en la que siempre confio sin importar que.</p>
+                    </figcaption>
+                </figure>
 
-        <!-- ========== RECUERDO 4 ========== -->
-        <figure class="polaroid foto-vertical" style="--rot: 3deg;">
-          <div class="foto" data-placeholder="Tu foto 4">
-            <!-- FOTO 4: cambia el src por tu imagen -->
-            <img src="images/IMAGEN4.jpeg" alt="Recuerdo 4 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 4 -->
-            <h3 class="rec-titulo">Como hermanas</h3>
-            <!-- MENSAJE 4 -->
-            <p class="rec-mensaje">Somos tan parecidas que a veces ni nos damos cuenta.</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 4 ========== -->
+                <figure class="polaroid foto-vertical" style="--rot: 3deg;">
+                    <div class="foto" data-placeholder="Tu foto 4">
+                        <img src="images/IMAGEN4.jpeg" alt="Recuerdo 4 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Como hermanas</h3>
+                        <p class="rec-mensaje">Somos tan parecidas que a veces ni nos damos cuenta.</p>
+                    </figcaption>
+                </figure>
 
-        <!-- ========== RECUERDO 5 ========== -->
-        <figure class="polaroid foto-cuadrada" style="--rot: -2deg;">
-          <div class="foto" data-placeholder="Tu foto 5">
-            <!-- FOTO 5: cambia el src por tu imagen -->
-            <img src="images/IMAGEN5.jpeg" alt="Recuerdo 5 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 5 -->
-            <h3 class="rec-titulo">Contigo, siempre</h3>
-            <!-- MENSAJE 5 -->
-            <p class="rec-mensaje">Tu eres esa personita que le doy gracias a Dios por tener en mi vida.</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 5 ========== -->
+                <figure class="polaroid foto-cuadrada" style="--rot: -2deg;">
+                    <div class="foto" data-placeholder="Tu foto 5">
+                        <img src="images/IMAGEN5.jpeg" alt="Recuerdo 5 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Contigo, siempre</h3>
+                        <p class="rec-mensaje">Tu eres esa personita que le doy gracias a Dios por tener en mi vida.</p>
+                    </figcaption>
+                </figure>
 
-        <!-- ========== RECUERDO 6 ========== -->
-        <figure class="polaroid foto-horizontal" style="--rot: 1.5deg;">
-          <div class="foto" data-placeholder="Tu foto 6">
-            <!-- FOTO 6: cambia el src por tu imagen -->
-            <img src="images/IMAGEN6.jpeg" alt="Recuerdo 6 con Dannita" loading="lazy">
-          </div>
-          <figcaption>
-            <!-- TÍTULO 6 -->
-            <h3 class="rec-titulo">Feliz cumpleaños</h3>
-            <!-- MENSAJE 6 -->
-            <p class="rec-mensaje">A mi persona favorita a mi hermosa Dannita ♡</p>
-          </figcaption>
-        </figure>
+                <!-- ========== RECUERDO 6 ========== -->
+                <figure class="polaroid foto-horizontal" style="--rot: 1.5deg;">
+                    <div class="foto" data-placeholder="Tu foto 6">
+                        <img src="images/IMAGEN6.jpeg" alt="Recuerdo 6 con Dannita" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <h3 class="rec-titulo">Feliz cumpleaños</h3>
+                        <p class="rec-mensaje">A mi persona favorita a mi hermosa Dannita ♡</p>
+                    </figcaption>
+                </figure>
 
-      </div>
-
-      <!-- Cierre del álbum: botón para abrir el libro y botón para volver a la carta -->
-      <div class="album-cierre">
-        <div class="album-cierre-deco" aria-hidden="true">
-          <span>✿</span><span>♡</span><span>✦</span>
-        </div>
-        <button type="button" class="btn-libro" id="abrir-libro"
-                aria-controls="pantalla-libro" aria-expanded="false">
-          Abrir nuestro libro ♡
-        </button>
-        <button type="button" class="btn-volver">♡ Volver a la carta</button>
-      </div>
-
-    </section>
-  </div>
-
-  <!-- ===================== PANTALLA 3: LIBRO DE RECUERDOS ===================== -->
-  <!--
-    CÓMO PERSONALIZAR EL LIBRO:
-    1. Las fotos se cargan desde la carpeta "images" (junto a index.html) con rutas relativas:
-       images/LIBRO-1.jpg, images/LIBRO-2.jpg, ... Guarda tus fotos con esos nombres
-       o cambia el "src" de cada <img> por el nombre real de tu archivo.
-    2. Cada página tiene bloques identificados con comentarios: FOTO, TÍTULO, TEXTO y NOTA MANUSCRITA.
-       Reemplaza los textos de ejemplo por tus propias palabras.
-    3. Para agregar o quitar páginas, copia o borra un bloque <article class="pagina"> completo.
-       Recomendado: un número PAR de páginas (4 o 6), porque en computador se ven de dos en dos.
-       La última página debe ser la de la dedicatoria final.
-    4. Marcos de foto disponibles: marco-arco, marco-polaroid y marco-ovalo.
-       Para alternar el orden, mueve el bloque de la foto antes o después del bloque de texto.
-    5. Inclinación del marco: cambia el valor de --rot (por ejemplo -2deg, 3deg, 0deg).
-    6. Los números de página se asignan solos.
-  -->
-  <div class="pantalla pantalla-libro oculta" id="pantalla-libro" hidden inert aria-hidden="true">
-    <section class="libro-pantalla" id="libro-pantalla" aria-labelledby="libro-titulo-sr">
-
-      <h2 class="sr-only" id="libro-titulo-sr" tabindex="-1">Nuestro libro de recuerdos</h2>
-
-      <!-- Botón para volver al álbum -->
-      <div class="libro-barra">
-        <button type="button" class="btn-volver" id="volver-album">♡ Volver al álbum</button>
-      </div>
-
-      <!-- Libro -->
-      <div class="libro-escena" id="libro-escena">
-        <div class="libro" id="libro">
-
-          <!-- ===== Páginas interiores ===== -->
-          <div class="libro-paginas" id="libro-paginas">
-
-            <!-- ========== PÁGINA 1 (foto arriba, texto abajo) ========== -->
-            <article class="pagina">
-              <!-- FOTO 1: archivo images/LIBRO-1.jpg -->
-              <div class="marco-foto">
-                <div class="marco marco-arco" style="--rot: 0deg;">
-                  <div class="foto-libro" data-placeholder="Foto 1">
-                    <img src="images/LIBRO-1.jpeg" alt="Foto 1 del libro de recuerdos">
-                  </div>
-                </div>
-              </div>
-              <div class="bloque-texto">
-                <!-- TÍTULO 1 -->
-                <h3 class="pagina-titulo">Para ti, Dannita</h3>
-                <!-- TEXTO 1 -->
-                <p class="pagina-texto">Este libro es un rinconcito donde guardo, con palabras sencillas, lo mucho que significas para mí.</p>
-                <!-- NOTA MANUSCRITA 1 -->
-                <p class="nota-manuscrita">Con todo mi cariño ♡</p>
-              </div>
-            </article>
-
-            <!-- ========== PÁGINA 2 (texto arriba, foto abajo) ========== -->
-            <article class="pagina">
-              <div class="bloque-texto">
-                <!-- TÍTULO 2 -->
-                <h3 class="pagina-titulo">Gracias por estar</h3>
-                <!-- TEXTO 2 -->
-                <p class="pagina-texto">Hay amistades que llegan sin avisar y se quedan para hacer la vida más bonita. La tuya es una de ellas.</p>
-                <!-- NOTA MANUSCRITA 2 -->
-                <p class="nota-manuscrita">Gracias por tanto ✿</p>
-              </div>
-              <!-- FOTO 2: archivo images/LIBRO-2.jpg -->
-              <div class="marco-foto">
-                <div class="marco marco-polaroid" style="--rot: -2deg;">
-                  <div class="foto-libro" data-placeholder="Foto 2">
-                    <img src="images/LIBRO-2.jpeg" alt="Foto 2 del libro de recuerdos">
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- ========== PÁGINA 3 (foto arriba, texto abajo) ========== -->
-            <article class="pagina">
-              <!-- FOTO 3: archivo images/LIBRO-3.jpg -->
-              <div class="marco-foto">
-                <div class="marco marco-ovalo" style="--rot: 0deg;">
-                  <div class="foto-libro" data-placeholder="Foto 3">
-                    <img src="images/LIBRO-3.jpeg" alt="Foto 3 del libro de recuerdos">
-                  </div>
-                </div>
-              </div>
-              <div class="bloque-texto">
-                <!-- TÍTULO 3 -->
-                <h3 class="pagina-titulo">Lo que más valoro</h3>
-                <!-- TEXTO 3 -->
-                <p class="pagina-texto">Tu forma de ser hace que los días se sientan más tranquilos y más alegres. Gracias por eso.</p>
-                <!-- NOTA MANUSCRITA 3 -->
-                <p class="nota-manuscrita">Eres especial ♡</p>
-              </div>
-            </article>
-
-            <!-- ========== PÁGINA 4 (texto arriba, foto abajo) ========== -->
-            <article class="pagina">
-              <div class="bloque-texto">
-                <!-- TÍTULO 4 -->
-                <h3 class="pagina-titulo">Pequeños momentos</h3>
-                <!-- TEXTO 4 -->
-                <p class="pagina-texto">Los recuerdos más bonitos suelen ser los más sencillos. Quiero seguir guardando muchos más contigo.</p>
-                <!-- NOTA MANUSCRITA 4 -->
-                <p class="nota-manuscrita">Siempre contigo ✦</p>
-              </div>
-              <!-- FOTO 4: archivo images/LIBRO-4.jpg -->
-              <div class="marco-foto">
-                <div class="marco marco-polaroid" style="--rot: 2.5deg;">
-                  <div class="foto-libro" data-placeholder="Foto 4">
-                    <img src="images/LIBRO-4.jpeg" alt="Foto 4 del libro de recuerdos">
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- ========== PÁGINA 5 (foto arriba, texto abajo) ========== -->
-            <article class="pagina">
-              <!-- FOTO 5: archivo images/LIBRO-5.jpg -->
-              <div class="marco-foto">
-                <div class="marco marco-arco" style="--rot: 0deg;">
-                  <div class="foto-libro" data-placeholder="Foto 5">
-                    <img src="images/LIBRO-5.jpeg" alt="Foto 5 del libro de recuerdos">
-                  </div>
-                </div>
-              </div>
-              <div class="bloque-texto">
-                <!-- TÍTULO 5 -->
-                <h3 class="pagina-titulo">Mis deseos para ti</h3>
-                <!-- TEXTO 5 -->
-                <p class="pagina-texto">Deseo que tengas días llenos de calma, risas y personas que te quieran tanto como yo.</p>
-                <!-- NOTA MANUSCRITA 5 -->
-                <p class="nota-manuscrita">Que seas muy feliz ♡</p>
-              </div>
-            </article>
-
-            <!-- ========== PÁGINA 6: DEDICATORIA FINAL Y FRASE DE CUMPLEAÑOS ========== -->
-            <article class="pagina pagina-final">
-              <div class="bloque-texto">
-                <p class="final-etiqueta">Dedicatoria</p>
-                <!-- DEDICATORIA FINAL -->
-                <p class="dedicatoria">Dannita, gracias por existir en mi vida. Que este libro te recuerde siempre cuánto te quiero.</p>
-                <div class="final-deco" aria-hidden="true">✿ ♡ ✦</div>
-                <!-- FRASE DE CUMPLEAÑOS -->
-                <p class="frase-final">¡Feliz cumpleaños, Dannita!</p>
-                <p class="pagina-texto frase-secundaria">Que este nuevo año te traiga todo lo bonito que mereces.</p>
-                <!-- FIRMA -->
-                <p class="firma">Con cariño, Lauu ♡</p>
-              </div>
-            </article>
-
-          </div>
-
-          <!-- Cinta marcapáginas -->
-          <div class="libro-marcador" aria-hidden="true"></div>
-
-          <!-- ===== Portada del libro (cerrado) ===== -->
-          <div class="libro-portada" id="libro-portada" role="button" tabindex="0"
-               aria-expanded="false"
-               aria-label="Libro de recuerdos cerrado. Toca o presiona Enter para abrirlo">
-            <span class="portada-cinta" aria-hidden="true"></span>
-            <div class="portada-contenido">
-              <span class="portada-flor" aria-hidden="true">✿</span>
-              <!-- TÍTULO DE LA PORTADA -->
-              <p class="portada-etiqueta">Para Dannita</p>
-              <h3 class="portada-titulo">Nuestro libro de recuerdos</h3>
-              <span class="portada-corazon" aria-hidden="true">♡</span>
             </div>
-          </div>
 
-        </div>
-      </div>
-
-      <!-- Indicación (libro cerrado) y controles de páginas (libro abierto) -->
-      <div class="libro-pie">
-        <p class="libro-hint" id="libro-hint">Toca el libro para abrirlo</p>
-        <nav class="libro-controles" id="libro-controles" aria-label="Páginas del libro">
-          <button type="button" class="btn-pagina" id="pag-anterior" aria-label="Página anterior">‹ Anterior</button>
-          <span class="libro-indicador" id="libro-indicador" aria-live="polite">1 / 6</span>
-          <button type="button" class="btn-pagina" id="pag-siguiente" aria-label="Página siguiente">Siguiente ›</button>
-        </nav>
-      </div>
-
-      <!-- Botón hacia la última sorpresa: aparece al llegar a la última página del libro -->
-      <div class="libro-final" id="libro-final">
-        <button type="button" class="btn-ultima" id="ver-ultima"
-                aria-controls="pantalla-vhs" aria-expanded="false">
-          Ver mi última sorpresa ♡
-        </button>
-      </div>
-
-    </section>
-  </div>
-
-  <!-- ===================== PANTALLA 4: ÚLTIMA SORPRESA (cinta VHS) ===================== -->
-  <!--
-    CÓMO PERSONALIZAR LA ÚLTIMA SORPRESA:
-    1. Tu video de CapCut debe llamarse video-dannita.mp4 y estar en la carpeta "videos"
-       (junto a index.html y a la carpeta "images"):  videos/video-dannita.mp4
-       Si usas otro nombre, cambia el "src" de la etiqueta <video> (busca: VIDEO).
-    2. Tu frase principal está en el bloque FRASE PRINCIPAL; el texto pequeño, en TEXTO SECUNDARIO.
-    3. El título de la portada de la cinta está en TÍTULO DE LA CINTA.
-    4. El video no empieza solo: Dannita decide cuándo pulsar ▶.
-  -->
-  <div class="pantalla pantalla-vhs oculta" id="pantalla-vhs" hidden inert aria-hidden="true">
-    <section class="vhs" id="vhs" data-fase="mensaje" aria-labelledby="vhs-titulo-sr">
-
-      <h2 class="sr-only" id="vhs-titulo-sr" tabindex="-1">Sorpresa para Dannita</h2>
-
-      <!-- Botón discreto para volver al libro -->
-      <button type="button" class="btn-volver btn-volver-vhs" id="volver-libro">♡ Volver al libro</button>
-
-      <!-- ========== ESCENA 1: MI MENSAJE ========== -->
-      <div class="vhs-escena vhs-mensaje" id="vhs-mensaje">
-
-        <!-- Marco decorativo estilo visor de videocámara -->
-        <div class="vhs-visor" aria-hidden="true">
-          <span class="esq esq-tl"></span>
-          <span class="esq esq-tr"></span>
-          <span class="esq esq-bl"></span>
-          <span class="esq esq-br"></span>
-          <span class="osd osd-rec"><i class="punto-rec"></i>REC</span>
-          <span class="osd osd-play">PLAY ▶&#xFE0E;</span>
-          <span class="osd osd-sp">SP</span>
-          <span class="osd osd-corazon">♡</span>
-        </div>
-
-        <!-- Garabatos dibujados a mano -->
-        <svg class="garabato g1" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
-        <svg class="garabato g2" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
-        <svg class="garabato g3" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
-        <svg class="garabato g4" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
-        <svg class="garabato g5" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
-        <svg class="garabato g6" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
-
-        <div class="vhs-contenido">
-          <span class="vhs-comilla" aria-hidden="true">“</span>
-          <!-- FRASE PRINCIPAL (aparece palabra por palabra) -->
-          <p class="vhs-frase" id="vhs-frase">Cuando pienso en ti, en mi mente llegan todos los recuerdos que vivimos y no habría querido vivirlos con otras personas, sino solo contigo.</p>
-          <!-- TEXTO SECUNDARIO -->
-          <p class="vhs-secundaria">Hay recuerdos que siempre elegiría vivir contigo</p>
-          <div class="vhs-deco" aria-hidden="true">♡ ✦ ♡</div>
-          <button type="button" class="vhs-continuar" id="vhs-continuar">Continuar ♡</button>
-        </div>
-      </div>
-
-      <!-- ========== ESCENA 2: LA CINTA Y EL VIDEO ========== -->
-      <div class="vhs-escena vhs-reproductor" id="vhs-reproductor">
-
-        <!-- Decoración lateral (solo en pantallas grandes) -->
-        <svg class="vhs-lateral vhs-camara" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
-          <path class="d-correa" d="M58 128 C56 150 60 156 76 156 H122 C136 156 138 148 136 128"/>
-          <rect class="d-cuerpo" x="28" y="44" width="132" height="86" rx="16"/>
-          <rect class="d-cuerpo" x="60" y="26" width="64" height="20" rx="8"/>
-          <rect class="d-visor" x="8" y="58" width="30" height="44" rx="8"/>
-          <circle class="d-lente" cx="178" cy="88" r="32"/>
-          <circle class="d-lente-in" cx="178" cy="88" r="20"/>
-          <circle class="d-brillo" cx="171" cy="80" r="6"/>
-          <circle class="d-rec" cx="54" cy="66" r="6"/>
-          <rect class="d-franja" x="76" y="104" width="56" height="9" rx="4.5"/>
-          <path class="d-trazo" d="M44 92 H64"/>
-        </svg>
-        <svg class="vhs-lateral vhs-casete-lado casete" viewBox="0 0 200 128" aria-hidden="true" focusable="false">
-          <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11"/>
-          <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6"/>
-          <path class="c-linea" d="M28 32 H172 M28 44 H150"/>
-          <path class="c-corazon" d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z"/>
-          <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13"/>
-          <circle class="c-carrete" cx="76" cy="97" r="8"/>
-          <circle class="c-carrete" cx="124" cy="97" r="8"/>
-          <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130"/>
-          <circle class="c-tornillo" cx="14" cy="16" r="2.5"/>
-          <circle class="c-tornillo" cx="186" cy="16" r="2.5"/>
-          <circle class="c-tornillo" cx="14" cy="112" r="2.5"/>
-          <circle class="c-tornillo" cx="186" cy="112" r="2.5"/>
-        </svg>
-
-        <!-- Garabatos alrededor del marco -->
-        <svg class="garabato g7" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
-        <svg class="garabato g8" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
-
-        <!-- Marco retro VHS -->
-        <div class="vhs-marco" id="vhs-marco">
-          <div class="marco-sup" aria-hidden="true">
-            <span class="osd">▶&#xFE0E; PLAY</span>
-            <span class="osd">SP ♡</span>
-          </div>
-
-          <div class="vhs-pantalla" id="vhs-pantalla">
-
-            <!-- VIDEO: ruta relativa videos/video-dannita.mp4 (no se reproduce solo) -->
-            <video id="vhs-video" src="IMAGES/videos/VIDEO-1.mp4" controls playsinline preload="metadata"
-                   aria-label="Video para Dannita">
-              Tu navegador no puede reproducir este video.
-            </video>
-
-            <!-- Botón para ver otra vez (aparece al terminar el video) -->
-            <button type="button" class="vhs-repetir" id="vhs-repetir" hidden>↻ Ver otra vez</button>
-
-            <!-- Portada de la cinta -->
-            <div class="vhs-portada" id="vhs-portada">
-              <p class="portada-etiqueta-vhs">RECUERDO ESPECIAL · PLAY</p>
-              <!-- TÍTULO DE LA CINTA -->
-              <h3 class="portada-titulo-vhs">Un recuerdo solo para ti</h3>
-
-              <svg class="casete" viewBox="0 0 200 128" aria-hidden="true" focusable="false">
-                <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11"/>
-                <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6"/>
-                <path class="c-linea" d="M28 32 H172 M28 44 H150"/>
-                <path class="c-corazon" d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z"/>
-                <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13"/>
-                <circle class="c-carrete" cx="76" cy="97" r="8"/>
-                <circle class="c-carrete" cx="124" cy="97" r="8"/>
-                <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130"/>
-                <circle class="c-tornillo" cx="14" cy="16" r="2.5"/>
-                <circle class="c-tornillo" cx="186" cy="16" r="2.5"/>
-                <circle class="c-tornillo" cx="14" cy="112" r="2.5"/>
-                <circle class="c-tornillo" cx="186" cy="112" r="2.5"/>
-              </svg>
-
-              <!-- Botón de reproducción -->
-              <button type="button" class="vhs-play" id="vhs-play" aria-label="Reproducir el video: Un recuerdo solo para ti">
-                <span aria-hidden="true">▶&#xFE0E;</span>
-              </button>
-              <p class="vhs-ayuda" id="vhs-ayuda">Pulsa ▶&#xFE0E; cuando estés lista</p>
-              <!-- Mensaje discreto si el video todavía no está disponible -->
-              <p class="vhs-aviso" id="vhs-aviso" role="status" aria-live="polite"></p>
+            <!-- Cierre del álbum -->
+            <div class="album-cierre">
+                <div class="album-cierre-deco" aria-hidden="true">
+                    <span>✿</span><span>♡</span><span>✦</span>
+                </div>
+                <button type="button" class="btn-libro" id="abrir-libro" aria-controls="pantalla-libro"
+                    aria-expanded="false">
+                    Abrir nuestro libro ♡
+                </button>
+                <button type="button" class="btn-volver">♡ Volver a la carta</button>
             </div>
-          </div>
 
-          <div class="marco-inf" aria-hidden="true">
-            <span class="franjas"><i></i><i></i><i></i><i></i></span>
-            <span class="osd">0:16</span>
-          </div>
-        </div>
-      </div>
+        </section>
+    </div>
 
-      <!-- ========== CAPA DE TRANSICIÓN: LA CINTA QUE CRUZA LA PANTALLA ========== -->
-      <div class="vhs-cinta" id="vhs-cinta" aria-hidden="true">
-        <span class="banda" style="--k: 0"></span>
-        <span class="banda" style="--k: 1"></span>
-        <span class="banda" style="--k: 2"></span>
-        <span class="banda" style="--k: 3"></span>
-        <span class="banda" style="--k: 4"></span>
-        <span class="banda" style="--k: 5"></span>
-        <span class="cinta-barrido"></span>
-        <span class="cinta-osd">▶&#xFE0E; PLAY</span>
-      </div>
+    <!-- ===================== PANTALLA 3: LIBRO DE RECUERDOS ===================== -->
+    <div class="pantalla pantalla-libro oculta" id="pantalla-libro" hidden inert aria-hidden="true">
+        <section class="libro-pantalla" id="libro-pantalla" aria-labelledby="libro-titulo-sr">
 
-    </section>
-  </div>
+            <h2 class="sr-only" id="libro-titulo-sr" tabindex="-1">Nuestro libro de recuerdos</h2>
 
-  <script src="script.js"></script>
+            <div class="libro-barra">
+                <button type="button" class="btn-volver" id="volver-album">♡ Volver al álbum</button>
+            </div>
+
+            <div class="libro-escena" id="libro-escena">
+                <div class="libro" id="libro">
+
+                    <div class="libro-paginas" id="libro-paginas">
+
+                        <!-- ========== PÁGINA 1 ========== -->
+                        <article class="pagina">
+                            <div class="marco-foto">
+                                <div class="marco marco-arco" style="--rot: 0deg;">
+                                    <div class="foto-libro" data-placeholder="Foto 1">
+                                        <img src="images/LIBRO-1.jpeg" alt="Foto 1 del libro de recuerdos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bloque-texto">
+                                <h3 class="pagina-titulo">Para ti mi Dannita</h3>
+                                <p class="pagina-texto">Esto lo hago porque quiero que veas lo importante que eres para
+                                    mí.</p>
+                                <p class="nota-manuscrita">Con todo mi cariño ♡</p>
+                            </div>
+                        </article>
+
+                        <!-- ========== PÁGINA 2 ========== -->
+                        <article class="pagina">
+                            <div class="bloque-texto">
+                                <h3 class="pagina-titulo">Gracias por estar</h3>
+                                <p class="pagina-texto">Hay amistades que llegan sin avisar y se quedan para hacer la
+                                    vida más bonita. La tuya es una de ellas.</p>
+                                <p class="nota-manuscrita">Gracias por tanto ✿</p>
+                            </div>
+                            <div class="marco-foto">
+                                <div class="marco marco-polaroid" style="--rot: -2deg;">
+                                    <div class="foto-libro" data-placeholder="Foto 2">
+                                        <img src="images/LIBRO-2.jpeg" alt="Foto 2 del libro de recuerdos">
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- ========== PÁGINA 3 ========== -->
+                        <article class="pagina">
+                            <div class="marco-foto">
+                                <div class="marco marco-ovalo" style="--rot: 0deg;">
+                                    <div class="foto-libro" data-placeholder="Foto 3">
+                                        <img src="images/LIBRO-3.jpeg" alt="Foto 3 del libro de recuerdos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bloque-texto">
+                                <h3 class="pagina-titulo">Lo que más valoro</h3>
+                                <p class="pagina-texto">Tu forma de ser siempre es mi rinconcito seguro, siempre estas
+                                    para mi y tu sabes que siempre estare para ti.</p>
+                                <p class="nota-manuscrita">Eres muy especial ♡</p>
+                            </div>
+                        </article>
+
+                        <!-- ========== PÁGINA 4 ========== -->
+                        <article class="pagina">
+                            <div class="bloque-texto">
+                                <h3 class="pagina-titulo">Mi orgullo</h3>
+                                <p class="pagina-texto">Quiero que sepas que siempre voy a estar orgullosa de ti, y que
+                                    pase lo que pase siempre te voy a apoyar.</p>
+                                <p class="nota-manuscrita">Siempre contigo ✦</p>
+                            </div>
+                            <div class="marco-foto">
+                                <div class="marco marco-polaroid" style="--rot: 2.5deg;">
+                                    <div class="foto-libro" data-placeholder="Foto 4">
+                                        <img src="images/LIBRO-4.jpeg" alt="Foto 4 del libro de recuerdos">
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- ========== PÁGINA 5 ========== -->
+                        <article class="pagina">
+                            <div class="marco-foto">
+                                <div class="marco marco-arco" style="--rot: 0deg;">
+                                    <div class="foto-libro" data-placeholder="Foto 5">
+                                        <img src="images/LIBRO-5.jpeg" alt="Foto 5 del libro de recuerdos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bloque-texto">
+                                <h3 class="pagina-titulo">Mis deseos para ti</h3>
+                                <p class="pagina-texto">Yo se que si quieres ser una medica lo lograras y podre decir
+                                    que cuando me enferme estara mi mejor doctora en el mundo.</p>
+                                <p class="nota-manuscrita">Que seas muy feliz ♡</p>
+                            </div>
+                        </article>
+
+                        <!-- ========== PÁGINA 6: DEDICATORIA FINAL ========== -->
+                        <article class="pagina pagina-final">
+                            <div class="bloque-texto">
+                                <p class="final-etiqueta">Dedicatoria</p>
+                                <p class="dedicatoria">Dannita, gracias por existir en mi vida. Siempre recuerda lo
+                                    mucho que te quiero.</p>
+                                <div class="final-deco" aria-hidden="true">✿ ♡ ✦</div>
+                                <p class="frase-final">¡Feliz cumpleaños, Dannita!</p>
+                                <p class="pagina-texto frase-secundaria">Que este nuevo año te traiga todo lo bonito que
+                                    mereces.</p>
+                                <p class="firma">Con cariño, Lauu ♡</p>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <div class="libro-marcador" aria-hidden="true"></div>
+
+                    <div class="libro-portada" id="libro-portada" role="button" tabindex="0" aria-expanded="false"
+                        aria-label="Libro de recuerdos cerrado. Toca o presiona Enter para abrirlo">
+                        <span class="portada-cinta" aria-hidden="true"></span>
+                        <div class="portada-contenido">
+                            <span class="portada-flor" aria-hidden="true">✿</span>
+                            <p class="portada-etiqueta">Para Dannita</p>
+                            <h3 class="portada-titulo">Nuestro libro de recuerdos</h3>
+                            <span class="portada-corazon" aria-hidden="true">♡</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="libro-pie">
+                <p class="libro-hint" id="libro-hint">Toca el libro para abrirlo</p>
+                <nav class="libro-controles" id="libro-controles" aria-label="Páginas del libro">
+                    <button type="button" class="btn-pagina" id="pag-anterior" aria-label="Página anterior">‹
+                        Anterior</button>
+                    <span class="libro-indicador" id="libro-indicador" aria-live="polite">1 / 6</span>
+                    <button type="button" class="btn-pagina" id="pag-siguiente" aria-label="Página siguiente">Siguiente
+                        ›</button>
+                </nav>
+            </div>
+
+            <div class="libro-final" id="libro-final">
+                <button type="button" class="btn-ultima" id="ver-ultima" aria-controls="pantalla-vhs"
+                    aria-expanded="false">
+                    Ver mi última sorpresa ♡
+                </button>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- ===================== PANTALLA 4: ÚLTIMA SORPRESA (cinta VHS) ===================== -->
+    <!--
+    CÓMO PERSONALIZAR:
+    1. El vídeo debe estar en: images/videos/VIDEO-1.mp4 (o cambia el "src" de la etiqueta <video>).
+    2. Frase principal y texto secundario están en los bloques correspondientes.
+    3. El vídeo NO se reproduce solo: Dannita pulsa ▶.
+    4. El botón «Saltar video ♡» (arriba a la derecha) la lleva directo a la pantalla de la clave.
+  -->
+    <div class="pantalla pantalla-vhs oculta" id="pantalla-vhs" hidden inert aria-hidden="true">
+        <section class="vhs" id="vhs" data-fase="mensaje" aria-labelledby="vhs-titulo-sr">
+
+            <h2 class="sr-only" id="vhs-titulo-sr" tabindex="-1">Sorpresa para Dannita</h2>
+
+            <button type="button" class="btn-volver btn-volver-vhs" id="volver-libro">♡ Volver al libro</button>
+
+            <!-- Botón para saltar el video e ir directo a la pantalla de la clave (aparece cuando la cinta está lista) -->
+            <button type="button" class="vhs-saltar" id="vhs-saltar">Saltar video ♡</button>
+
+            <!-- ========== ESCENA 1: MI MENSAJE ========== -->
+            <div class="vhs-escena vhs-mensaje" id="vhs-mensaje">
+
+                <div class="vhs-visor" aria-hidden="true">
+                    <span class="esq esq-tl"></span>
+                    <span class="esq esq-tr"></span>
+                    <span class="esq esq-bl"></span>
+                    <span class="esq esq-br"></span>
+                    <span class="osd osd-rec"><i class="punto-rec"></i>REC</span>
+                    <span class="osd osd-play">PLAY ▶&#xFE0E;</span>
+                    <span class="osd osd-sp">SP</span>
+                    <span class="osd osd-corazon">♡</span>
+                </div>
+
+                <svg class="garabato g1" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z" />
+                </svg>
+                <svg class="garabato g2" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z" />
+                </svg>
+                <svg class="garabato g3" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z" />
+                </svg>
+                <svg class="garabato g4" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z" />
+                </svg>
+                <svg class="garabato g5" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z" />
+                </svg>
+                <svg class="garabato g6" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z" />
+                </svg>
+
+                <div class="vhs-contenido">
+                    <span class="vhs-comilla" aria-hidden="true">“</span>
+                    <p class="vhs-frase" id="vhs-frase">Cuando pienso en ti, en mi mente llegan todos los recuerdos que
+                        vivimos y no habría querido vivirlos con otras personas, sino solo contigo.</p>
+                    <p class="vhs-secundaria">Hay recuerdos que siempre elegiría vivir contigo</p>
+                    <div class="vhs-deco" aria-hidden="true">♡ ✦ ♡</div>
+                    <button type="button" class="vhs-continuar" id="vhs-continuar">Continuar ♡</button>
+                </div>
+            </div>
+
+            <!-- ========== ESCENA 2: LA CINTA Y EL VIDEO ========== -->
+            <div class="vhs-escena vhs-reproductor" id="vhs-reproductor">
+
+                <svg class="vhs-lateral vhs-camara" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+                    <path class="d-correa" d="M58 128 C56 150 60 156 76 156 H122 C136 156 138 148 136 128" />
+                    <rect class="d-cuerpo" x="28" y="44" width="132" height="86" rx="16" />
+                    <rect class="d-cuerpo" x="60" y="26" width="64" height="20" rx="8" />
+                    <rect class="d-visor" x="8" y="58" width="30" height="44" rx="8" />
+                    <circle class="d-lente" cx="178" cy="88" r="32" />
+                    <circle class="d-lente-in" cx="178" cy="88" r="20" />
+                    <circle class="d-brillo" cx="171" cy="80" r="6" />
+                    <circle class="d-rec" cx="54" cy="66" r="6" />
+                    <rect class="d-franja" x="76" y="104" width="56" height="9" rx="4.5" />
+                    <path class="d-trazo" d="M44 92 H64" />
+                </svg>
+                <svg class="vhs-lateral vhs-casete-lado casete" viewBox="0 0 200 128" aria-hidden="true"
+                    focusable="false">
+                    <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11" />
+                    <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6" />
+                    <path class="c-linea" d="M28 32 H172 M28 44 H150" />
+                    <path class="c-corazon"
+                        d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z" />
+                    <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13" />
+                    <circle class="c-carrete" cx="76" cy="97" r="8" />
+                    <circle class="c-carrete" cx="124" cy="97" r="8" />
+                    <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130" />
+                    <circle class="c-tornillo" cx="14" cy="16" r="2.5" />
+                    <circle class="c-tornillo" cx="186" cy="16" r="2.5" />
+                    <circle class="c-tornillo" cx="14" cy="112" r="2.5" />
+                    <circle class="c-tornillo" cx="186" cy="112" r="2.5" />
+                </svg>
+
+                <svg class="garabato g7" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z" />
+                </svg>
+                <svg class="garabato g8" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+                    <path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z" />
+                </svg>
+
+                <div class="vhs-marco" id="vhs-marco">
+                    <div class="marco-sup" aria-hidden="true">
+                        <span class="osd">▶&#xFE0E; PLAY</span>
+                        <span class="osd">SP ♡</span>
+                    </div>
+
+                    <div class="vhs-pantalla" id="vhs-pantalla">
+
+                        <!-- VIDEO: ruta relativa (no se reproduce solo) -->
+                        <video id="vhs-video" src="images/videos/VIDEO-1.mp4" controls playsinline preload="metadata"
+                            aria-label="Video para Dannita">
+                            Tu navegador no puede reproducir este video.
+                        </video>
+
+                        <button type="button" class="vhs-repetir" id="vhs-repetir" hidden>↻ Ver otra vez</button>
+
+                        <div class="vhs-portada" id="vhs-portada">
+                            <p class="portada-etiqueta-vhs">RECUERDO ESPECIAL · PLAY</p>
+                            <h3 class="portada-titulo-vhs">Un recuerdo solo para ti</h3>
+
+                            <svg class="casete" viewBox="0 0 200 128" aria-hidden="true" focusable="false">
+                                <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11" />
+                                <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6" />
+                                <path class="c-linea" d="M28 32 H172 M28 44 H150" />
+                                <path class="c-corazon"
+                                    d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z" />
+                                <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13" />
+                                <circle class="c-carrete" cx="76" cy="97" r="8" />
+                                <circle class="c-carrete" cx="124" cy="97" r="8" />
+                                <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130" />
+                                <circle class="c-tornillo" cx="14" cy="16" r="2.5" />
+                                <circle class="c-tornillo" cx="186" cy="16" r="2.5" />
+                                <circle class="c-tornillo" cx="14" cy="112" r="2.5" />
+                                <circle class="c-tornillo" cx="186" cy="112" r="2.5" />
+                            </svg>
+
+                            <button type="button" class="vhs-play" id="vhs-play"
+                                aria-label="Reproducir el video: Un recuerdo solo para ti">
+                                <span aria-hidden="true">▶&#xFE0E;</span>
+                            </button>
+                            <p class="vhs-ayuda" id="vhs-ayuda">Pulsa ▶&#xFE0E; cuando estés lista</p>
+                            <p class="vhs-aviso" id="vhs-aviso" role="status" aria-live="polite"></p>
+                        </div>
+                    </div>
+
+                    <div class="marco-inf" aria-hidden="true">
+                        <span class="franjas"><i></i><i></i><i></i><i></i></span>
+                        <span class="osd">0:16</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPA DE TRANSICIÓN -->
+            <div class="vhs-cinta" id="vhs-cinta" aria-hidden="true">
+                <span class="banda" style="--k: 0"></span>
+                <span class="banda" style="--k: 1"></span>
+                <span class="banda" style="--k: 2"></span>
+                <span class="banda" style="--k: 3"></span>
+                <span class="banda" style="--k: 4"></span>
+                <span class="banda" style="--k: 5"></span>
+                <span class="cinta-barrido"></span>
+                <span class="cinta-osd">▶&#xFE0E; PLAY</span>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
