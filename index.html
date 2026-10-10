@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f7efe2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Quicksand:wght@400;500;600&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -253,9 +253,9 @@
               </div>
               <div class="bloque-texto">
                 <!-- TÍTULO 1 -->
-                <h3 class="pagina-titulo">Para ti mi Dannita</h3>
+                <h3 class="pagina-titulo">Para ti, Dannita</h3>
                 <!-- TEXTO 1 -->
-                <p class="pagina-texto">Esto lo hago con mucho cariño, porque significas mucho para mí.</p>
+                <p class="pagina-texto">Este libro es un rinconcito donde guardo, con palabras sencillas, lo mucho que significas para mí.</p>
                 <!-- NOTA MANUSCRITA 1 -->
                 <p class="nota-manuscrita">Con todo mi cariño ♡</p>
               </div>
@@ -267,7 +267,7 @@
                 <!-- TÍTULO 2 -->
                 <h3 class="pagina-titulo">Gracias por estar</h3>
                 <!-- TEXTO 2 -->
-                <p class="pagina-texto">Tu amistad ha sido una de las mejores cosas que me ha pasado en la vida.</p>
+                <p class="pagina-texto">Hay amistades que llegan sin avisar y se quedan para hacer la vida más bonita. La tuya es una de ellas.</p>
                 <!-- NOTA MANUSCRITA 2 -->
                 <p class="nota-manuscrita">Gracias por tanto ✿</p>
               </div>
@@ -295,7 +295,7 @@
                 <!-- TÍTULO 3 -->
                 <h3 class="pagina-titulo">Lo que más valoro</h3>
                 <!-- TEXTO 3 -->
-                <p class="pagina-texto">Tu forma de ser es de las cosas mas especiales que puedo tener contigo nunca me faltan las risas.</p>
+                <p class="pagina-texto">Tu forma de ser hace que los días se sientan más tranquilos y más alegres. Gracias por eso.</p>
                 <!-- NOTA MANUSCRITA 3 -->
                 <p class="nota-manuscrita">Eres especial ♡</p>
               </div>
@@ -307,7 +307,7 @@
                 <!-- TÍTULO 4 -->
                 <h3 class="pagina-titulo">Pequeños momentos</h3>
                 <!-- TEXTO 4 -->
-                <p class="pagina-texto">Los recuerdos mas bonitos son los que tengo contigo y de ninguno de ellos me arrepentiría.</p>
+                <p class="pagina-texto">Los recuerdos más bonitos suelen ser los más sencillos. Quiero seguir guardando muchos más contigo.</p>
                 <!-- NOTA MANUSCRITA 4 -->
                 <p class="nota-manuscrita">Siempre contigo ✦</p>
               </div>
@@ -335,7 +335,7 @@
                 <!-- TÍTULO 5 -->
                 <h3 class="pagina-titulo">Mis deseos para ti</h3>
                 <!-- TEXTO 5 -->
-                <p class="pagina-texto">Deseo que cumplas siempre todo lo que te propones porque yo se que siempre lo logras.</p>
+                <p class="pagina-texto">Deseo que tengas días llenos de calma, risas y personas que te quieran tanto como yo.</p>
                 <!-- NOTA MANUSCRITA 5 -->
                 <p class="nota-manuscrita">Que seas muy feliz ♡</p>
               </div>
@@ -346,7 +346,7 @@
               <div class="bloque-texto">
                 <p class="final-etiqueta">Dedicatoria</p>
                 <!-- DEDICATORIA FINAL -->
-                <p class="dedicatoria">Dannita, a mi futura médica o lo que realmente quieras, siempre estaré orgullosa de ti.</p>
+                <p class="dedicatoria">Dannita, gracias por existir en mi vida. Que este libro te recuerde siempre cuánto te quiero.</p>
                 <div class="final-deco" aria-hidden="true">✿ ♡ ✦</div>
                 <!-- FRASE DE CUMPLEAÑOS -->
                 <p class="frase-final">¡Feliz cumpleaños, Dannita!</p>
@@ -386,6 +386,172 @@
           <span class="libro-indicador" id="libro-indicador" aria-live="polite">1 / 6</span>
           <button type="button" class="btn-pagina" id="pag-siguiente" aria-label="Página siguiente">Siguiente ›</button>
         </nav>
+      </div>
+
+      <!-- Botón hacia la última sorpresa: aparece al llegar a la última página del libro -->
+      <div class="libro-final" id="libro-final">
+        <button type="button" class="btn-ultima" id="ver-ultima"
+                aria-controls="pantalla-vhs" aria-expanded="false">
+          Ver mi última sorpresa ♡
+        </button>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ===================== PANTALLA 4: ÚLTIMA SORPRESA (cinta VHS) ===================== -->
+  <!--
+    CÓMO PERSONALIZAR LA ÚLTIMA SORPRESA:
+    1. Tu video de CapCut debe llamarse video-dannita.mp4 y estar en la carpeta "videos"
+       (junto a index.html y a la carpeta "images"):  videos/video-dannita.mp4
+       Si usas otro nombre, cambia el "src" de la etiqueta <video> (busca: VIDEO).
+    2. Tu frase principal está en el bloque FRASE PRINCIPAL; el texto pequeño, en TEXTO SECUNDARIO.
+    3. El título de la portada de la cinta está en TÍTULO DE LA CINTA.
+    4. El video no empieza solo: Dannita decide cuándo pulsar ▶.
+  -->
+  <div class="pantalla pantalla-vhs oculta" id="pantalla-vhs" hidden inert aria-hidden="true">
+    <section class="vhs" id="vhs" data-fase="mensaje" aria-labelledby="vhs-titulo-sr">
+
+      <h2 class="sr-only" id="vhs-titulo-sr" tabindex="-1">Sorpresa para Dannita</h2>
+
+      <!-- Botón discreto para volver al libro -->
+      <button type="button" class="btn-volver btn-volver-vhs" id="volver-libro">♡ Volver al libro</button>
+
+      <!-- ========== ESCENA 1: MI MENSAJE ========== -->
+      <div class="vhs-escena vhs-mensaje" id="vhs-mensaje">
+
+        <!-- Marco decorativo estilo visor de videocámara -->
+        <div class="vhs-visor" aria-hidden="true">
+          <span class="esq esq-tl"></span>
+          <span class="esq esq-tr"></span>
+          <span class="esq esq-bl"></span>
+          <span class="esq esq-br"></span>
+          <span class="osd osd-rec"><i class="punto-rec"></i>REC</span>
+          <span class="osd osd-play">PLAY ▶&#xFE0E;</span>
+          <span class="osd osd-sp">SP</span>
+          <span class="osd osd-corazon">♡</span>
+        </div>
+
+        <!-- Garabatos dibujados a mano -->
+        <svg class="garabato g1" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
+        <svg class="garabato g2" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
+        <svg class="garabato g3" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
+        <svg class="garabato g4" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
+        <svg class="garabato g5" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
+        <svg class="garabato g6" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
+
+        <div class="vhs-contenido">
+          <span class="vhs-comilla" aria-hidden="true">“</span>
+          <!-- FRASE PRINCIPAL (aparece palabra por palabra) -->
+          <p class="vhs-frase" id="vhs-frase">Cuando pienso en ti, en mi mente llegan todos los recuerdos que vivimos y no habría querido vivirlos con otras personas, sino solo contigo.</p>
+          <!-- TEXTO SECUNDARIO -->
+          <p class="vhs-secundaria">Hay recuerdos que siempre elegiría vivir contigo</p>
+          <div class="vhs-deco" aria-hidden="true">♡ ✦ ♡</div>
+          <button type="button" class="vhs-continuar" id="vhs-continuar">Continuar ♡</button>
+        </div>
+      </div>
+
+      <!-- ========== ESCENA 2: LA CINTA Y EL VIDEO ========== -->
+      <div class="vhs-escena vhs-reproductor" id="vhs-reproductor">
+
+        <!-- Decoración lateral (solo en pantallas grandes) -->
+        <svg class="vhs-lateral vhs-camara" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+          <path class="d-correa" d="M58 128 C56 150 60 156 76 156 H122 C136 156 138 148 136 128"/>
+          <rect class="d-cuerpo" x="28" y="44" width="132" height="86" rx="16"/>
+          <rect class="d-cuerpo" x="60" y="26" width="64" height="20" rx="8"/>
+          <rect class="d-visor" x="8" y="58" width="30" height="44" rx="8"/>
+          <circle class="d-lente" cx="178" cy="88" r="32"/>
+          <circle class="d-lente-in" cx="178" cy="88" r="20"/>
+          <circle class="d-brillo" cx="171" cy="80" r="6"/>
+          <circle class="d-rec" cx="54" cy="66" r="6"/>
+          <rect class="d-franja" x="76" y="104" width="56" height="9" rx="4.5"/>
+          <path class="d-trazo" d="M44 92 H64"/>
+        </svg>
+        <svg class="vhs-lateral vhs-casete-lado casete" viewBox="0 0 200 128" aria-hidden="true" focusable="false">
+          <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11"/>
+          <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6"/>
+          <path class="c-linea" d="M28 32 H172 M28 44 H150"/>
+          <path class="c-corazon" d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z"/>
+          <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13"/>
+          <circle class="c-carrete" cx="76" cy="97" r="8"/>
+          <circle class="c-carrete" cx="124" cy="97" r="8"/>
+          <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130"/>
+          <circle class="c-tornillo" cx="14" cy="16" r="2.5"/>
+          <circle class="c-tornillo" cx="186" cy="16" r="2.5"/>
+          <circle class="c-tornillo" cx="14" cy="112" r="2.5"/>
+          <circle class="c-tornillo" cx="186" cy="112" r="2.5"/>
+        </svg>
+
+        <!-- Garabatos alrededor del marco -->
+        <svg class="garabato g7" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 34 C8 25 4 16 9 10 C13 6 18 8 20 13 C22 8 27 6 31 10 C36 16 32 25 20 34 Z"/></svg>
+        <svg class="garabato g8" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 5 C21 13 23 17 35 20 C23 23 21 27 20 35 C19 27 17 23 5 20 C17 17 19 13 20 5 Z"/></svg>
+
+        <!-- Marco retro VHS -->
+        <div class="vhs-marco" id="vhs-marco">
+          <div class="marco-sup" aria-hidden="true">
+            <span class="osd">▶&#xFE0E; PLAY</span>
+            <span class="osd">SP ♡</span>
+          </div>
+
+          <div class="vhs-pantalla" id="vhs-pantalla">
+
+            <!-- VIDEO: ruta relativa videos/video-dannita.mp4 (no se reproduce solo) -->
+            <video id="vhs-video" src="IMAGES/videos/VIDEO-1.mp4" controls playsinline preload="metadata"
+                   aria-label="Video para Dannita">
+              Tu navegador no puede reproducir este video.
+            </video>
+
+            <!-- Botón para ver otra vez (aparece al terminar el video) -->
+            <button type="button" class="vhs-repetir" id="vhs-repetir" hidden>↻ Ver otra vez</button>
+
+            <!-- Portada de la cinta -->
+            <div class="vhs-portada" id="vhs-portada">
+              <p class="portada-etiqueta-vhs">RECUERDO ESPECIAL · PLAY</p>
+              <!-- TÍTULO DE LA CINTA -->
+              <h3 class="portada-titulo-vhs">Un recuerdo solo para ti</h3>
+
+              <svg class="casete" viewBox="0 0 200 128" aria-hidden="true" focusable="false">
+                <rect class="c-cuerpo" x="4" y="6" width="192" height="116" rx="11"/>
+                <rect class="c-etiqueta" x="16" y="16" width="168" height="60" rx="6"/>
+                <path class="c-linea" d="M28 32 H172 M28 44 H150"/>
+                <path class="c-corazon" d="M100 68 C88 60 86 52 91 50 C95 48 99 51 100 54 C101 51 105 48 109 50 C114 52 112 60 100 68 Z"/>
+                <rect class="c-ventana" x="52" y="84" width="96" height="26" rx="13"/>
+                <circle class="c-carrete" cx="76" cy="97" r="8"/>
+                <circle class="c-carrete" cx="124" cy="97" r="8"/>
+                <path class="c-radio" d="M76 91 V103 M70 97 H82 M124 91 V103 M118 97 H130"/>
+                <circle class="c-tornillo" cx="14" cy="16" r="2.5"/>
+                <circle class="c-tornillo" cx="186" cy="16" r="2.5"/>
+                <circle class="c-tornillo" cx="14" cy="112" r="2.5"/>
+                <circle class="c-tornillo" cx="186" cy="112" r="2.5"/>
+              </svg>
+
+              <!-- Botón de reproducción -->
+              <button type="button" class="vhs-play" id="vhs-play" aria-label="Reproducir el video: Un recuerdo solo para ti">
+                <span aria-hidden="true">▶&#xFE0E;</span>
+              </button>
+              <p class="vhs-ayuda" id="vhs-ayuda">Pulsa ▶&#xFE0E; cuando estés lista</p>
+              <!-- Mensaje discreto si el video todavía no está disponible -->
+              <p class="vhs-aviso" id="vhs-aviso" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="marco-inf" aria-hidden="true">
+            <span class="franjas"><i></i><i></i><i></i><i></i></span>
+            <span class="osd">0:16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== CAPA DE TRANSICIÓN: LA CINTA QUE CRUZA LA PANTALLA ========== -->
+      <div class="vhs-cinta" id="vhs-cinta" aria-hidden="true">
+        <span class="banda" style="--k: 0"></span>
+        <span class="banda" style="--k: 1"></span>
+        <span class="banda" style="--k: 2"></span>
+        <span class="banda" style="--k: 3"></span>
+        <span class="banda" style="--k: 4"></span>
+        <span class="banda" style="--k: 5"></span>
+        <span class="cinta-barrido"></span>
+        <span class="cinta-osd">▶&#xFE0E; PLAY</span>
       </div>
 
     </section>

@@ -1,8 +1,9 @@
 /*
-  ESTRUCTURA DEL PROYECTO (una sola página con tres pantallas que se cambian con fundido):
-  1) Carta:  portada, sobre y carta.
-  2) Álbum:  fotografías en marcos Polaroid.
-  3) Libro:  libro de recuerdos (se abre desde el botón «Abrir nuestro libro» del álbum).
+  ESTRUCTURA DEL PROYECTO (una sola página con cuatro pantallas que se cambian con fundido):
+  1) Carta:    portada, sobre y carta.
+  2) Álbum:    fotografías en marcos Polaroid.
+  3) Libro:    libro de recuerdos (se abre desde el botón «Abrir nuestro libro» del álbum).
+  4) Cinta VHS: última sorpresa (se abre desde «Ver mi última sorpresa ♡», al final del libro).
   Las pantallas inactivas se retiran con el atributo "hidden" para que nunca
   cubran ni bloqueen toques.
 */
@@ -35,7 +36,24 @@
   const botonAnterior = document.getElementById('pag-anterior');
   const botonSiguiente = document.getElementById('pag-siguiente');
   const indicador = document.getElementById('libro-indicador');
+  const libroFinal = document.getElementById('libro-final');
+  const botonUltima = document.getElementById('ver-ultima');
   const paginasLibro = libroPaginas ? Array.from(libroPaginas.querySelectorAll('.pagina')) : [];
+
+  // ===== Referencias a elementos: última sorpresa (VHS) =====
+  const pantallaVHS = document.getElementById('pantalla-vhs');
+  const vhs = document.getElementById('vhs');
+  const tituloVHS = document.getElementById('vhs-titulo-sr');
+  const botonVolverLibro = document.getElementById('volver-libro');
+  const vhsFrase = document.getElementById('vhs-frase');
+  const vhsContinuar = document.getElementById('vhs-continuar');
+  const vhsCinta = document.getElementById('vhs-cinta');
+  const vhsReproductor = document.getElementById('vhs-reproductor');
+  const vhsPantalla = document.getElementById('vhs-pantalla');
+  const vhsVideo = document.getElementById('vhs-video');
+  const vhsPlay = document.getElementById('vhs-play');
+  const vhsRepetir = document.getElementById('vhs-repetir');
+  const vhsAviso = document.getElementById('vhs-aviso');
 
   const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -45,15 +63,27 @@
   // Duración del fundido entre pantallas (debe coincidir con --duracion-pantalla en styles.css)
   const DURACION = 800;
 
+  // Tiempos de la transición de la cinta VHS (milisegundos)
+  const VHS_CUBRIR = 1450;   // la cinta termina de cubrir la pantalla
+  const VHS_PAUSA = 700;     // breve pausa con el texto «PLAY»
+  const VHS_REVELAR = 1450;  // la cinta se retira y descubre la siguiente escena
+
   let abierto = false;          // sobre abierto
   let albumAbierto = false;     // pantalla del álbum visible
   let libroVisible = false;     // pantalla del libro visible
   let libroAbierto = false;     // libro con la portada abierta
+  let vhsVisible = false;       // pantalla de la cinta VHS visible
   let transicionando = false;   // evita clics repetidos durante un cambio de pantalla
   let observador = null;        // controla la aparición de las Polaroids
   let posicionAlbum = 0;        // posición del desplazamiento del álbum al ir al libro
+  let posicionLibro = 0;        // posición del desplazamiento del libro al ir a la cinta
   let paginaInicial = 0;        // índice de la primera página visible del libro
   let cambiandoPagina = false;  // evita pasar de página mientras se anima
+
+  let vhsTransicionHecha = false; // la transición de la cinta ocurre una sola vez por visita
+  let vhsListo = false;           // la portada de la cinta ya es visible
+  let vhsTemporizadores = [];     // temporizadores pendientes de la pantalla VHS
+  let vhsPalabras = 0;            // número de palabras de la frase
 
   // ===== Abrir el sobre =====
   function abrirSobre() {
@@ -198,7 +228,7 @@
 
   // ===== Carta → Álbum (fade out de la carta, luego fade in del álbum) =====
   function abrirAlbum() {
-    if (transicionando || albumAbierto || libroVisible || !pantallaCarta || !pantallaAlbum) return;
+    if (transicionando || albumAbierto || libroVisible || vhsVisible || !pantallaCarta || !pantallaAlbum) return;
     transicionando = true;
 
     botonDescubrir.setAttribute('aria-expanded', 'true');
@@ -271,6 +301,11 @@
     botonAnterior.disabled = paginaInicial <= 0;
     botonSiguiente.disabled = paginaInicial + n >= total;
 
+    // Al llegar a la última página, aparece el botón hacia la última sorpresa
+    if (libroAbierto && libroFinal && paginaInicial + n >= total) {
+      libroFinal.classList.add('visible');
+    }
+
     // Si el botón con foco quedó desactivado, pasar el foco al otro botón
     if (teniaFocoSiguiente && botonSiguiente.disabled) botonAnterior.focus({ preventScroll: true });
     if (teniaFocoAnterior && botonAnterior.disabled) botonSiguiente.focus({ preventScroll: true });
@@ -335,6 +370,8 @@
     libroPortada.setAttribute('aria-expanded', 'false');
     libroPaginas.classList.remove('cambiando');
     libroPaginas.classList.remove('sin-transicion');
+    if (libroFinal) libroFinal.classList.remove('visible');
+    if (botonUltima) botonUltima.setAttribute('aria-expanded', 'false');
     libroAbierto = false;
     cambiandoPagina = false;
     paginaInicial = 0;
@@ -398,6 +435,291 @@
     });
   }
 
+  // ===================== ÚLTIMA SORPRESA: CINTA VHS =====================
+
+  // Programar y limpiar temporizadores de esta pantalla
+  function vhsEsperar(accion, ms) {
+    const id = setTimeout(accion, ms);
+    vhsTemporizadores.push(id);
+    return id;
+  }
+
+  function vhsLimpiarTemporizadores() {
+    vhsTemporizadores.forEach((id) => clearTimeout(id));
+    vhsTemporizadores = [];
+  }
+
+  // Separar la frase en palabras para que aparezca poco a poco
+  function prepararFrase() {
+    if (!vhsFrase || !vhs) return;
+
+    const texto = vhsFrase.textContent.trim().replace(/\s+/g, ' ');
+    const palabras = texto.split(' ');
+
+    vhsFrase.textContent = '';
+
+    // Texto completo para lectores de pantalla
+    const lector = document.createElement('span');
+    lector.className = 'sr-only';
+    lector.textContent = texto;
+
+    // Palabras animadas (solo visuales)
+    const visual = document.createElement('span');
+    visual.setAttribute('aria-hidden', 'true');
+    palabras.forEach((palabra, i) => {
+      const span = document.createElement('span');
+      span.className = 'palabra';
+      span.style.setProperty('--i', String(i));
+      span.textContent = palabra;
+      visual.appendChild(span);
+      if (i < palabras.length - 1) visual.appendChild(document.createTextNode(' '));
+    });
+
+    vhsFrase.appendChild(lector);
+    vhsFrase.appendChild(visual);
+
+    vhsPalabras = palabras.length;
+    vhs.style.setProperty('--n', String(palabras.length));
+  }
+
+  // --- Estado del video (si el archivo no existe, la página sigue funcionando) ---
+  function videoConError() {
+    return !!(vhsVideo && (vhsVideo.error || vhsVideo.networkState === 3));
+  }
+
+  function marcarVideoNoDisponible() {
+    if (!vhsPantalla) return;
+    vhsPantalla.classList.add('sin-video');
+    if (vhsAviso) vhsAviso.textContent = 'El recuerdo estará disponible pronto ♡';
+  }
+
+  function marcarVideoDisponible() {
+    if (!vhsPantalla) return;
+    vhsPantalla.classList.remove('sin-video');
+    if (vhsAviso) vhsAviso.textContent = '';
+  }
+
+  // Esperar a que el video cargue (o falle) para reintentar al pulsar ▶
+  function esperarVideo() {
+    return new Promise((resolve) => {
+      if (vhsVideo.readyState >= 1 && !vhsVideo.error) {
+        resolve(true);
+        return;
+      }
+
+      let terminado = false;
+      let temporizador = null;
+
+      const alCargar = () => terminar(true);
+      const alFallar = () => terminar(false);
+
+      function terminar(ok) {
+        if (terminado) return;
+        terminado = true;
+        clearTimeout(temporizador);
+        vhsVideo.removeEventListener('loadedmetadata', alCargar);
+        vhsVideo.removeEventListener('error', alFallar);
+        resolve(ok);
+      }
+
+      vhsVideo.addEventListener('loadedmetadata', alCargar);
+      vhsVideo.addEventListener('error', alFallar);
+      temporizador = setTimeout(() => terminar(false), 4000);
+    });
+  }
+
+  // La portada se transforma y aparece el video; solo entonces se reproduce
+  function mostrarYReproducir() {
+    vhsPantalla.classList.add('reproduciendo');
+    if (vhsRepetir) vhsRepetir.hidden = true;
+
+    try { vhsVideo.focus({ preventScroll: true }); } catch (e) { /* sin foco, no pasa nada */ }
+
+    const promesa = vhsVideo.play();
+    if (promesa && typeof promesa.catch === 'function') {
+      promesa.catch(() => { /* si el navegador no lo permite, Dannita usa los controles */ });
+    }
+  }
+
+  // Botón ▶ de la portada
+  function reproducirVideo() {
+    if (!vhsVideo || !vhsPantalla) return;
+
+    if (videoConError()) {
+      // Reintentar por si el archivo se agregó después de abrir la página
+      vhsVideo.load();
+      esperarVideo().then((ok) => {
+        if (ok && vhsVisible) {
+          marcarVideoDisponible();
+          mostrarYReproducir();
+        } else {
+          marcarVideoNoDisponible();
+        }
+      });
+      return;
+    }
+
+    marcarVideoDisponible();
+    mostrarYReproducir();
+  }
+
+  // Ver el video otra vez cuando termina
+  function repetirVideo() {
+    if (!vhsVideo) return;
+    try { vhsVideo.currentTime = 0; } catch (e) { /* se reinicia al reproducir */ }
+    if (vhsRepetir) vhsRepetir.hidden = true;
+    const promesa = vhsVideo.play();
+    if (promesa && typeof promesa.catch === 'function') promesa.catch(() => {});
+  }
+
+  if (vhsVideo) {
+    vhsVideo.addEventListener('error', () => {
+      // Si el archivo falla, se conserva la portada con un mensaje discreto
+      vhsPantalla.classList.remove('reproduciendo');
+      marcarVideoNoDisponible();
+    });
+    vhsVideo.addEventListener('loadedmetadata', marcarVideoDisponible);
+    vhsVideo.addEventListener('play', () => { if (vhsRepetir) vhsRepetir.hidden = true; });
+    vhsVideo.addEventListener('ended', () => { if (vhsRepetir) vhsRepetir.hidden = false; });
+    if (videoConError()) marcarVideoNoDisponible();
+  }
+
+  // --- Secuencia de la pantalla ---
+
+  // Al terminar la transición, la portada de la cinta queda lista
+  function vhsTerminarTransicion() {
+    vhsListo = true;
+    if (videoConError()) marcarVideoNoDisponible();
+    if (vhsPlay) vhsPlay.focus({ preventScroll: true });
+  }
+
+  // La cinta cruza la pantalla: cubre el mensaje y se retira para revelar la portada
+  function iniciarTransicionVHS() {
+    if (!vhsVisible || vhsTransicionHecha) return; // solo ocurre una vez
+    vhsTransicionHecha = true;
+    vhsLimpiarTemporizadores();
+
+    // Movimiento reducido: cambio directo de escena, sin cinta
+    if (reducirMovimiento.matches) {
+      vhs.dataset.fase = 'reproductor';
+      vhsReproductor.classList.add('vhs-activa-rep');
+      vhsTerminarTransicion();
+      return;
+    }
+
+    // 1) La cinta cubre la pantalla
+    vhsCinta.classList.add('activa');
+    void vhsCinta.offsetWidth;
+    vhsCinta.classList.add('cubriendo');
+
+    // 2) Ya cubierta: cambia la escena por detrás y aparece «PLAY»
+    vhsEsperar(() => {
+      vhs.dataset.fase = 'reproductor';
+      vhsCinta.classList.add('cubierta');
+    }, VHS_CUBRIR);
+
+    // 3) La cinta se retira y descubre la portada
+    vhsEsperar(() => {
+      vhsCinta.classList.remove('cubierta');
+      vhsCinta.classList.remove('cubriendo');
+      vhsCinta.classList.add('revelando');
+      vhsReproductor.classList.add('vhs-activa-rep');
+    }, VHS_CUBRIR + VHS_PAUSA);
+
+    // 4) Fin: la portada queda lista para que Dannita pulse ▶
+    vhsEsperar(() => {
+      vhsCinta.classList.remove('activa');
+      vhsCinta.classList.remove('revelando');
+      vhsTerminarTransicion();
+    }, VHS_CUBRIR + VHS_PAUSA + VHS_REVELAR);
+  }
+
+  // Empieza la escena del mensaje; después de leerlo, llega la transición automáticamente
+  function iniciarMensajeVHS() {
+    void vhs.offsetWidth;
+    vhs.classList.add('vhs-activa');
+
+    const espera = reducirMovimiento.matches
+      ? 8000
+      : vhsPalabras * 170 + 6300;
+
+    vhsEsperar(iniciarTransicionVHS, espera);
+  }
+
+  // Dejar la pantalla VHS lista para la próxima visita
+  function reiniciarVHS() {
+    vhsLimpiarTemporizadores();
+
+    if (vhsVideo) {
+      try { vhsVideo.pause(); } catch (e) { /* sin acción */ }
+      try { vhsVideo.currentTime = 0; } catch (e) { /* sin metadatos todavía */ }
+    }
+    if (vhsPantalla) vhsPantalla.classList.remove('reproduciendo');
+    if (vhsRepetir) vhsRepetir.hidden = true;
+
+    vhs.classList.remove('vhs-activa');
+    vhs.dataset.fase = 'mensaje';
+    vhsReproductor.classList.remove('vhs-activa-rep');
+    vhsCinta.classList.remove('activa', 'cubriendo', 'cubierta', 'revelando');
+
+    vhsTransicionHecha = false;
+    vhsListo = false;
+  }
+
+  // ===== Libro → Última sorpresa (fade out del libro, luego fade in de la cinta) =====
+  function abrirVHS() {
+    if (transicionando || !libroVisible || !pantallaVHS) return;
+    transicionando = true;
+
+    posicionLibro = pantallaLibro.scrollTop; // recordar dónde estaba el libro
+    botonUltima.setAttribute('aria-expanded', 'true');
+    ocultarPantalla(pantallaLibro);
+
+    alTerminarFundido(() => {
+      retirarPantalla(pantallaLibro);
+      libroVisible = false;
+
+      reiniciarVHS();
+      mostrarPantalla(pantallaVHS);
+      pantallaVHS.scrollTop = 0;
+      vhsVisible = true;
+
+      if (tituloVHS) tituloVHS.focus({ preventScroll: true });
+      iniciarMensajeVHS();
+      transicionando = false;
+    });
+  }
+
+  // ===== Última sorpresa → Libro (el libro queda como estaba) =====
+  function volverAlLibro() {
+    if (transicionando || !vhsVisible) return;
+    transicionando = true;
+
+    // Detener de inmediato la secuencia y el sonido mientras se desvanece la pantalla
+    vhsLimpiarTemporizadores();
+    if (vhsVideo) {
+      try { vhsVideo.pause(); } catch (e) { /* sin acción */ }
+    }
+    ocultarPantalla(pantallaVHS);
+
+    alTerminarFundido(() => {
+      retirarPantalla(pantallaVHS);
+      reiniciarVHS();
+      vhsVisible = false;
+
+      mostrarPantalla(pantallaLibro);
+      pantallaLibro.scrollTop = posicionLibro;
+      libroVisible = true;
+
+      botonUltima.setAttribute('aria-expanded', 'false');
+      botonUltima.focus({ preventScroll: true });
+      transicionando = false;
+    });
+  }
+
+  // Preparar la frase palabra por palabra
+  prepararFrase();
+
   // ===== Eventos de los botones =====
   if (botonDescubrir) botonDescubrir.addEventListener('click', abrirAlbum);
   botonesVolver.forEach((b) => b.addEventListener('click', volverACarta));
@@ -407,6 +729,12 @@
 
   if (botonSiguiente) botonSiguiente.addEventListener('click', paginaSiguiente);
   if (botonAnterior) botonAnterior.addEventListener('click', paginaAnterior);
+
+  if (botonUltima) botonUltima.addEventListener('click', abrirVHS);
+  if (botonVolverLibro) botonVolverLibro.addEventListener('click', volverAlLibro);
+  if (vhsContinuar) vhsContinuar.addEventListener('click', iniciarTransicionVHS);
+  if (vhsPlay) vhsPlay.addEventListener('click', reproducirVideo);
+  if (vhsRepetir) vhsRepetir.addEventListener('click', repetirVideo);
 
   // Portada del libro: clic, toque y teclado
   if (libroPortada) {
@@ -450,7 +778,8 @@
   // ===== Teclado: Escape vuelve a la pantalla anterior; flechas pasan de página =====
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      if (libroVisible) volverAlAlbum();
+      if (vhsVisible) volverAlLibro();
+      else if (libroVisible) volverAlAlbum();
       else if (albumAbierto) volverACarta();
       return;
     }
