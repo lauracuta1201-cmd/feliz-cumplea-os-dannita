@@ -1380,45 +1380,46 @@ body {
 .btn-volver-vhs:hover { opacity: 1; }
 
 /* Botón «Saltar video ♡»: arriba a la derecha, sin tapar los controles del video.
-   Aparece cuando la cinta termina su transición (el JavaScript agrega la clase .vhs-lista). */
+   Aparece cuando la cinta está lista (clase .vhs-lista) o en cuanto cambia a la escena de la cinta. */
 .vhs-saltar {
   position: absolute;
   top: 12px;
   right: 12px;
-  z-index: 7;
+  z-index: 8;
   min-height: 44px;
-  padding: 8px 18px;
-  border: 1.5px solid var(--rosa-oscuro);
+  padding: 8px 20px;
+  border: none;
   border-radius: 999px;
   cursor: pointer;
   font-family: 'Quicksand', 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   letter-spacing: 0.05em;
   white-space: nowrap;
-  color: var(--rosa-profundo);
-  background: rgba(255, 253, 248, 0.88);
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
-  box-shadow: 0 8px 18px rgba(181, 106, 112, 0.2);
+  color: #fff6f0;
+  background: linear-gradient(160deg, #d98a90, var(--rosa-profundo));
+  box-shadow: 0 8px 18px rgba(181, 106, 112, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.3);
   -webkit-tap-highlight-color: transparent;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0s linear 0.5s, transform 0.3s ease, background 0.3s ease;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.vhs-lista .vhs-saltar {
-  opacity: 0.92;
-  visibility: visible;
-  transition: opacity 0.9s ease 0.2s, visibility 0s linear 0s, transform 0.3s ease, background 0.3s ease;
-}
-.vhs-lista .vhs-saltar:hover {
+.vhs-lista .vhs-saltar,
+.vhs[data-fase="reproductor"] .vhs-saltar {
   opacity: 1;
-  background: #fff;
-  transform: translateY(-2px);
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.9s ease 0.2s, visibility 0s linear 0s, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.vhs-lista .vhs-saltar:active { transform: scale(0.98); }
+.vhs-lista .vhs-saltar:hover,
+.vhs[data-fase="reproductor"] .vhs-saltar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(181, 106, 112, 0.45), inset 0 2px 3px rgba(255, 255, 255, 0.3);
+}
+.vhs-saltar:active { transform: scale(0.97); }
 .vhs-saltar:focus-visible {
-  outline: 3px dashed var(--rosa-profundo);
+  outline: 3px dashed var(--cafe-oscuro);
   outline-offset: 4px;
 }
 
@@ -2020,7 +2021,7 @@ body {
   .btn-ultima { padding: 12px 22px; font-size: 0.95rem; }
   .btn-volver { padding: 10px 18px; font-size: 0.92rem; }
   .btn-volver-vhs { padding: 8px 12px; font-size: 0.82rem; }
-  .vhs-saltar { padding: 8px 12px; font-size: 0.82rem; }
+  .vhs-saltar { padding: 8px 14px; font-size: 0.82rem; }
   .libro-pantalla { padding-left: 12px; padding-right: 12px; }
   .btn-pagina { min-width: 94px; padding: 10px 12px; font-size: 0.92rem; }
   .libro-controles { gap: 8px; }

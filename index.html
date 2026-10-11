@@ -11,7 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Quicksand:wght@400;500;600&family=VT323&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <!-- El número ?v=4 evita que GitHub Pages / el navegador muestren una versión vieja.
+         Cada vez que subas cambios, súbelo (?v=5, ?v=6...) en esta línea y en la del script. -->
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body>
@@ -90,6 +92,7 @@
     CÓMO PERSONALIZAR:
     1. Crea una carpeta llamada "images" junto a index.html.
     2. Guarda tus imágenes con los nombres que ya tienes (IMAGEN1.JPG, etc.) o cambia el "src".
+       (En GitHub las mayúsculas y minúsculas del nombre deben coincidir EXACTAMENTE.)
     3. Edita el título (<h3 class="rec-titulo">) y el mensaje (<p class="rec-mensaje">) de cada recuerdo.
     4. Para agregar o quitar recuerdos, copia o borra un bloque <figure> completo.
     5. Formas de la foto: foto-vertical, foto-cuadrada o foto-horizontal.
@@ -351,6 +354,7 @@
     <!--
     CÓMO PERSONALIZAR:
     1. El vídeo debe estar en: images/videos/VIDEO-1.mp4 (o cambia el "src" de la etiqueta <video>).
+       En GitHub el nombre debe coincidir EXACTAMENTE, con mayúsculas y minúsculas.
     2. Frase principal y texto secundario están en los bloques correspondientes.
     3. El vídeo NO se reproduce solo: Dannita pulsa ▶.
     4. El botón «Saltar video ♡» (arriba a la derecha) la lleva directo a la pantalla de la clave.
@@ -455,8 +459,11 @@
 
                     <div class="vhs-pantalla" id="vhs-pantalla">
 
-                        <!-- VIDEO: ruta relativa (no se reproduce solo) -->
+                        <!-- VIDEO: ruta relativa (no se reproduce solo).
+                             controlslist / disablepictureinpicture: evitan que el video se vaya a pantalla completa
+                             y tape el botón «Saltar video ♡». -->
                         <video id="vhs-video" src="images/videos/VIDEO-1.mp4" controls playsinline preload="metadata"
+                            controlslist="nodownload nofullscreen" disablepictureinpicture
                             aria-label="Video para Dannita">
                             Tu navegador no puede reproducir este video.
                         </video>
@@ -514,7 +521,7 @@
         </section>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=4"></script>
 </body>
 
 </html>

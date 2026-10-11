@@ -535,6 +535,9 @@
         vhsPantalla.classList.add('reproduciendo');
         if (vhsRepetir) vhsRepetir.hidden = true;
 
+        // Respaldo: el botón «Saltar video ♡» siempre debe estar visible mientras se ve el video
+        if (vhs) vhs.classList.add('vhs-lista');
+
         try { vhsVideo.focus({ preventScroll: true }); } catch (e) { /* sin foco, no pasa nada */ }
 
         const promesa = vhsVideo.play();
@@ -933,6 +936,7 @@ Con todo mi amor, Lauu ♡`;
     let activo = false, transicion = false, libroListo = false;
     let intentos = 0;
     let temporizadorFin = null;
+    let finProgramado = false; // evita programar dos veces el paso a la pantalla de la clave
 
     // ====== Pantallas (mismo patrón de fundido que el bloque anterior) ======
     function esperar(fn) { setTimeout(fn, reducir.matches ? 0 : DURACION); }
@@ -946,12 +950,29 @@ Con todo mi amor, Lauu ♡`;
         if (activo && e.key === 'Escape') e.stopPropagation();
     }, true);
 
+    // ====== Salir de la pantalla completa (en algunos celulares el video se abre así y tapa todo) ======
+    function salirDePantallaCompleta() {
+        try {
+            if (document.fullscreenElement && document.exitFullscreen) {
+                const p = document.exitFullscreen();
+                if (p && typeof p.catch === 'function') p.catch(() => { });
+            } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+            if (vhsVideo.webkitDisplayingFullscreen && vhsVideo.webkitExitFullscreen) {
+                vhsVideo.webkitExitFullscreen();
+            }
+        } catch (e) { /* sin acción */ }
+    }
+
     // ====== Al terminar el video (o al saltarlo): transición suave hacia el secreto ======
     function irAlSecreto() {
         if (transicion || activo) return;
         if (pantallaVHS.hidden || pantallaVHS.classList.contains('oculta')) return; // se salió de la pantalla
         transicion = true;
+        clearTimeout(temporizadorFin);
         try { vhsVideo.pause(); } catch (e) { /* sin acción */ }
+        salirDePantallaCompleta();
 
         pantallaVHS.classList.add('oculta');
         pantallaVHS.inert = true;
@@ -968,13 +989,33 @@ Con todo mi amor, Lauu ♡`;
         });
     }
 
-    vhsVideo.addEventListener('ended', () => {
+    // El video terminó: tras una breve pausa pasa a la pantalla de la clave
+    function alTerminarVideo() {
+        if (finProgramado) return;
+        finProgramado = true;
         clearTimeout(temporizadorFin);
+        salirDePantallaCompleta();
         temporizadorFin = setTimeout(irAlSecreto, reducir.matches ? 300 : 1800);
+    }
+
+    // Si Dannita vuelve a reproducir o mueve el video, se cancela el paso automático
+    function cancelarFinVideo() {
+        finProgramado = false;
+        clearTimeout(temporizadorFin);
+    }
+
+    vhsVideo.addEventListener('ended', alTerminarVideo);
+    // Respaldo: algunos celulares no envían «ended» a tiempo, así que también se vigila el final del video
+    vhsVideo.addEventListener('timeupdate', () => {
+        const d = vhsVideo.duration;
+        if (d && isFinite(d) && d > 1 && vhsVideo.currentTime >= d - 0.1) alTerminarVideo();
     });
-    // Si vuelve a reproducir o se mueve el video, se cancela el paso automático
-    vhsVideo.addEventListener('play', () => clearTimeout(temporizadorFin));
-    vhsVideo.addEventListener('seeking', () => clearTimeout(temporizadorFin));
+    vhsVideo.addEventListener('play', cancelarFinVideo);
+    vhsVideo.addEventListener('seeking', () => {
+        // Solo se cancela si el usuario se movió lejos del final
+        const d = vhsVideo.duration;
+        if (!d || !isFinite(d) || vhsVideo.currentTime < d - 0.5) cancelarFinVideo();
+    });
 
     // Botón «Saltar video ♡»: va directo a la pantalla de la clave sin ver el video
     if (vhsSaltar) {
