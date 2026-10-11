@@ -1423,6 +1423,10 @@ body {
   outline-offset: 4px;
 }
 
+/* Cuando Dannita ya pasó por la clave y las cartitas, el video se ve como pieza final:
+   no hay botón para saltarlo (lo agrega el JavaScript con la clase .vhs-final). */
+.vhs-final .vhs-saltar { display: none; }
+
 /* Escenas apiladas en el mismo lugar */
 .vhs-escena {
   grid-area: 1 / 1;
@@ -2295,4 +2299,510 @@ body {
   .ded-clave input { width: 46px; height: 58px; }
   .ded-clave { gap: 8px; }
   .ded-hoja { padding: 26px 22px 36px 28px; }
+}
+
+/* =====================================================================
+   NUEVO · CARTITAS DE LOS AMIGOS
+   Pantalla que aparece después de tu carta larga y termina con «♡ Volver al video».
+   Cada carta tiene su propio estilo (clases .cp-karen, .cp-pueblo, .cp-santiago, .cp-samuel),
+   pero todas comparten la misma base de álbum de recuerdos.
+   ===================================================================== */
+
+.pantalla-cartas {
+  --vino: #6e2535;
+  --vino-2: #8f3a4d;
+  /* Textura de papel muy sutil (sin animación) */
+  --cs-grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .35 0 0 0 0 .3 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  background: radial-gradient(ellipse at 50% 38%, #fdf4e7 0%, #f4e0d1 58%, #e4c7b8 100%);
+}
+
+/* Grano de papel fijo sobre todo el fondo */
+.pantalla-cartas::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--cs-grano);
+  background-size: 200px 200px;
+  opacity: 0.45;
+}
+
+.cartas {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 14px 36px;
+}
+
+.cartas [data-foco]:focus { outline: none; }
+
+/* ----- Cada «página» de esta sección ----- */
+.cs { display: none; width: 100%; }
+.cs.activa { display: block; animation: csEntrar 0.9s ease backwards; }
+.cs.saliendo { opacity: 0; transition: opacity 0.6s ease; }
+
+@keyframes csEntrar {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ----- Botones ----- */
+.cs-btn {
+  min-height: 50px;
+  max-width: 100%;
+  padding: 11px 32px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: #fff3ea;
+  background: linear-gradient(160deg, var(--cp-btn-1, #a8485c), var(--cp-btn-2, var(--vino)));
+  box-shadow: 0 10px 22px rgba(79, 26, 39, 0.28), inset 0 2px 3px rgba(255, 255, 255, 0.25);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cs-btn:hover { transform: translateY(-2px); }
+.cs-btn:active { transform: scale(0.98); }
+.cs-btn:focus-visible { outline: 3px dashed var(--vino); outline-offset: 4px; }
+.cs-btn-sec {
+  color: var(--vino);
+  background: rgba(255, 253, 248, 0.9);
+  border: 1.5px solid var(--vino-2);
+  box-shadow: 0 6px 14px rgba(79, 26, 39, 0.15);
+}
+
+/* ----- Páginas de texto: transición y mensaje final ----- */
+.cs-texto {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 16px 4px;
+  text-align: center;
+}
+.cs-linea1 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6.2vw, 2.7rem);
+  line-height: 1.35;
+  color: var(--vino);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  opacity: 0;
+}
+.cs-linea2 {
+  margin: 20px 0 0;
+  font-family: 'Caveat', 'Segoe Script', cursive;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 5.4vw, 2.3rem);
+  line-height: 1.3;
+  color: var(--vino-2);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  opacity: 0;
+}
+.cs-adorno {
+  margin: 22px 0 22px;
+  color: var(--dorado);
+  letter-spacing: 0.5em;
+  font-size: 1.05rem;
+  opacity: 0;
+}
+
+/* Aparición lenta y delicada */
+.cs.activa .cs-linea1 { animation: csTexto 1.9s ease forwards; animation-delay: 0.9s; }
+.cs.activa .cs-linea2 { animation: csTexto 1.9s ease forwards; animation-delay: 3.7s; }
+.cs.activa .cs-adorno { animation: csTexto 1.6s ease forwards; animation-delay: 5.4s; }
+.cs-final.activa .cs-linea2 { animation-delay: 3.9s; }
+.cs-final.activa .cs-adorno { animation-delay: 5.8s; }
+
+@keyframes csTexto {
+  from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* Botones que aparecen con retraso */
+.cs-aparece { opacity: 0; visibility: hidden; }
+.cs.activa .cs-aparece {
+  animation: csBoton 1s ease forwards;
+  animation-delay: var(--cs-boton, 6s);
+}
+@keyframes csBoton {
+  from { opacity: 0; visibility: visible; }
+  to   { opacity: 1; visibility: visible; }
+}
+.cs-intro { --cs-boton: 6.4s; }
+.cs-titulo { --cs-boton: 1.8s; }
+.cs-final { --cs-boton: 6.8s; }
+
+/* ----- Título de la sección: «Cartitas para Dannita ♡» ----- */
+.cs-portada {
+  position: relative;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: clamp(34px, 8vw, 54px) clamp(20px, 6vw, 36px);
+  text-align: center;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, #fbf3e4);
+  box-shadow:
+    inset 0 0 0 6px #fbf3e4,
+    inset 0 0 0 7.5px rgba(110, 37, 53, 0.35),
+    0 22px 44px rgba(79, 26, 39, 0.26);
+}
+.cs-sobre-ico {
+  width: 64px;
+  height: auto;
+  margin: 0 auto 8px;
+  display: block;
+  fill: none;
+  stroke: var(--vino);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+}
+.cs-portada-titulo {
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(2.8rem, 13vw, 4.6rem);
+  line-height: 1.1;
+  color: var(--vino);
+  overflow-wrap: break-word;
+}
+.cs-titulo .cs-adorno { opacity: 1; margin: 14px 0 18px; }
+.cs-titulo.activa .cs-adorno { animation: none; }
+.cs-portada-titulo { animation: none; }
+
+/* ----- Base común de cada carta (página de álbum) ----- */
+.cs-carta { max-width: 700px; margin: 0 auto; }
+
+.cp-hoja {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  padding: clamp(26px, 5vw, 42px) clamp(14px, 4.5vw, 36px) clamp(28px, 5vw, 42px);
+  border-radius: 10px;
+  text-align: center;
+}
+.cp-cabecera, .cp-carta, .cp-btn { position: relative; z-index: 2; }
+
+.cp-titulo {
+  margin: 0 0 10px;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.15;
+  color: var(--cp-titulo, var(--vino));
+  overflow-wrap: break-word;
+}
+.cp-frase {
+  margin: 0 auto 24px;
+  max-width: 34rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 4.4vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--cp-texto, #6b4a3a);
+  overflow-wrap: break-word;
+}
+
+/* Marco de la carta: la imagen se ve COMPLETA, con su proporción original */
+.cp-carta { margin: 0 auto; width: fit-content; max-width: 100%; }
+.cp-marco {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+  background: #fffdf8;
+  border-radius: 3px;
+  box-shadow: 0 12px 26px rgba(79, 40, 40, 0.24), 0 2px 5px rgba(79, 40, 40, 0.14);
+  transform: rotate(var(--cp-rot, 0deg));
+}
+.cp-marco img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.cp-aviso { display: none; margin: 0; }
+/* Si la imagen no existe (nombre distinto, etc.), se muestra un aviso discreto */
+.cp-marco.sin-carta {
+  min-height: 220px;
+  width: min(100%, 420px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cp-marco.sin-carta img { display: none; }
+.cp-marco.sin-carta .cp-aviso {
+  display: block;
+  padding: 24px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--cp-texto, #6b4a3a);
+}
+
+.cp-btn { margin-top: 26px; }
+
+/* Entrada suave de cada parte de la carta */
+.cs-carta.activa .cp-cabecera { animation: subirSuave 0.9s ease 0.2s backwards; }
+.cs-carta.activa .cp-carta    { animation: subirSuave 1s ease 0.6s backwards; }
+.cs-carta.activa .cp-btn      { animation: subirSuave 0.9s ease 1.2s backwards; }
+
+/* Decoración (siempre detrás del texto y sin interferir con los toques) */
+.cp-deco { position: absolute; z-index: 1; pointer-events: none; }
+svg.cp-deco { height: auto; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===================== KAREN · universidad (muy sutil, femenino y tierno) ===================== */
+.cp-karen {
+  --cp-titulo: #b56a70;
+  --cp-texto: #7a5459;
+  --cp-btn-1: #d98a90;
+  --cp-btn-2: #b56a70;
+  --cp-rot: -1deg;
+  background-color: #fffaf3;
+  background-image:
+    linear-gradient(90deg, transparent 20px, rgba(197, 132, 135, 0.2) 20px 21.5px, transparent 21.5px),
+    repeating-linear-gradient(180deg, transparent 0 31px, rgba(197, 132, 135, 0.11) 31px 32px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 30%),
+    var(--cs-grano);
+  background-size: auto, auto, auto, 200px 200px;
+  border-radius: 6px 12px 12px 6px;
+  box-shadow: 0 2px 0 #f0e2d0, 0 5px 0 #f8ede0, 0 24px 44px rgba(181, 106, 112, 0.26);
+}
+.cp-karen .cp-marco::before { /* cinta washi */
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 38%;
+  height: 22px;
+  transform: translateX(-50%) rotate(-3deg);
+  background-color: rgba(232, 195, 196, 0.85);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.7) 1.5px, transparent 2px);
+  background-size: 9px 9px;
+  box-shadow: 0 2px 4px rgba(122, 84, 89, 0.18);
+  z-index: 3;
+}
+.cp-karen .cp-marco::after {
+  content: "✿";
+  position: absolute;
+  right: -8px;
+  bottom: -10px;
+  font-size: 1.6rem;
+  color: var(--rosa-oscuro);
+  text-shadow: 0 1px 0 #fff;
+}
+.cp-karen .cp-flor { color: var(--rosa); opacity: 0.65; font-size: 1.5rem; line-height: 1; }
+.cp-karen .cp-f1 { top: 10px; left: 30px; }
+.cp-karen .cp-f2 { bottom: 14px; left: 36px; font-size: 1.2rem; }
+.cp-karen .cp-lapiz { right: 16px; bottom: 14px; width: 34px; stroke: var(--rosa-oscuro); stroke-width: 2; opacity: 0.5; }
+.cp-karen .cp-libro { right: 18px; top: 12px; width: 38px; stroke: var(--rosa-oscuro); stroke-width: 2; opacity: 0.5; }
+
+/* ===================== AMIGA DEL PUEBLO · años, nostalgia y fotos antiguas ===================== */
+.cp-pueblo {
+  --cp-titulo: #7a3b2e;
+  --cp-texto: #6b4a3a;
+  --cp-btn-1: #a8485c;
+  --cp-btn-2: #6e2535;
+  --cp-rot: 1.2deg;
+  background-color: #f3e2c3;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(176, 125, 70, 0.22), transparent 40%),
+    radial-gradient(ellipse at 85% 90%, rgba(176, 125, 70, 0.2), transparent 42%),
+    linear-gradient(160deg, #f8ebd3, #ecd4ad),
+    var(--cs-grano);
+  background-size: auto, auto, auto, 200px 200px;
+  box-shadow:
+    inset 0 0 0 7px #f3e2c3,
+    inset 0 0 0 8.5px rgba(122, 59, 46, 0.35),
+    inset 0 0 70px rgba(150, 100, 50, 0.3),
+    0 24px 44px rgba(110, 70, 40, 0.3);
+}
+.cp-pueblo .cp-titulo { font-size: clamp(1.9rem, 7.2vw, 2.8rem); }
+.cp-pueblo .cp-marco {
+  padding: 16px;
+  background: #fffaf0;
+  box-shadow: 0 12px 26px rgba(90, 55, 30, 0.3), 0 2px 5px rgba(90, 55, 30, 0.2);
+}
+/* Esquineros de álbum de fotos (quedan en el borde, no tapan la carta) */
+.cp-pueblo .cp-rincon {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #7a3b2e, #4e2519);
+  z-index: 3;
+}
+.cp-pueblo .rc1 { top: 0; left: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.cp-pueblo .rc2 { top: 0; right: 0; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.cp-pueblo .rc3 { bottom: 0; left: 0; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+.cp-pueblo .rc4 { bottom: 0; right: 0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+
+/* Fotos antiguas decorativas */
+.cp-pueblo .cp-vieja {
+  width: clamp(40px, 10vw, 62px);
+  aspect-ratio: 4 / 5;
+  padding: 4px 4px 12px;
+  background: #fffaf0;
+  box-shadow: 0 6px 12px rgba(80, 50, 30, 0.3);
+  opacity: 0.85;
+}
+.cp-pueblo .cp-vieja::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #cfae82, #8f6b45);
+  filter: sepia(0.5);
+}
+.cp-pueblo .v1 { top: -6px; left: -10px; transform: rotate(-9deg); }
+.cp-pueblo .v2 { bottom: -8px; right: -8px; transform: rotate(7deg); }
+.cp-pueblo .cp-flor { color: #b5707a; opacity: 0.7; line-height: 1; }
+.cp-pueblo .cp-f1 { top: 12px; right: 26px; font-size: 1.4rem; }
+.cp-pueblo .cp-f2 { bottom: 16px; left: 28px; font-size: 1.25rem; }
+.cp-pueblo .cp-c1 { top: 46px; left: 34px; font-size: 1rem; }
+.cp-pueblo .cp-c2 { bottom: 52px; right: 34px; font-size: 1.05rem; }
+
+/* ===================== SANTIAGO · mar, viaje y atardecer (sencillo y sin corazones) ===================== */
+.cp-santiago {
+  --cp-titulo: #3f5f68;
+  --cp-texto: #6a5a4c;
+  --cp-btn-1: #6f9099;
+  --cp-btn-2: #3f5f68;
+  --cp-rot: 0deg;
+  padding-bottom: clamp(70px, 14vw, 90px);
+  background-color: #fbefe0;
+  background-image:
+    linear-gradient(180deg, #fbe4cd 0%, #fdf0e1 38%, #f9ecdc 70%, #f0dcc2 100%),
+    var(--cs-grano);
+  background-size: auto, 200px 200px;
+  border: 1px solid rgba(63, 95, 104, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 2px 0 #ecd9c0, 0 24px 44px rgba(90, 100, 100, 0.28);
+}
+.cp-santiago .cp-titulo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  line-height: 1.2;
+}
+.cp-santiago .cp-marco {
+  padding: 12px;
+  border: 1px solid rgba(63, 95, 104, 0.3);
+  box-shadow: 0 10px 22px rgba(70, 80, 80, 0.25);
+}
+.cp-santiago .cp-marco::before { /* cinta de papel kraft */
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 34%;
+  height: 20px;
+  transform: translateX(-50%) rotate(-2deg);
+  background-color: rgba(214, 185, 140, 0.8);
+  box-shadow: 0 2px 4px rgba(90, 70, 40, 0.2);
+  z-index: 3;
+}
+.cp-santiago .cp-sol {
+  top: 18px;
+  right: 22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #ffd9a8, #f3a96b);
+  opacity: 0.55;
+}
+.cp-santiago .cp-barco { top: 16px; left: 20px; width: 40px; stroke: #3f5f68; stroke-width: 2; opacity: 0.45; }
+.cp-santiago .cp-olas { left: 0; right: 0; bottom: 0; width: 100%; height: 58px; fill: none; }
+.cp-santiago .ola1 { fill: rgba(111, 144, 153, 0.24); }
+.cp-santiago .ola2 { fill: rgba(63, 95, 104, 0.2); }
+
+/* ===================== SAMUEL · sencillo, elegante y nostálgico (rollo fotográfico) ===================== */
+.cp-samuel {
+  --cp-titulo: #6e2535;
+  --cp-texto: #6b5648;
+  --cp-btn-1: #8f3a4d;
+  --cp-btn-2: #6e2535;
+  --cp-rot: 0deg;
+  background-color: #f1e8da;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.55), transparent 60%),
+    linear-gradient(180deg, #f4ecdf, #e9dcc8),
+    var(--cs-grano);
+  background-size: auto, auto, 200px 200px;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 7px #f1e8da,
+    inset 0 0 0 8.5px rgba(176, 140, 80, 0.55),
+    0 24px 44px rgba(80, 60, 40, 0.26);
+}
+.cp-samuel .cp-titulo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 7vw, 2.5rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.cp-samuel .cp-cabecera::before { /* filete dorado */
+  content: "";
+  display: block;
+  width: 70px;
+  height: 1.5px;
+  margin: 0 auto 14px;
+  background: linear-gradient(90deg, transparent, #b08c50, transparent);
+}
+.cp-samuel .cp-marco { /* rollo de película: franja oscura con perforaciones */
+  padding: 12px 30px;
+  background: #4b3a35;
+  border-radius: 3px;
+  box-shadow: 0 12px 24px rgba(50, 35, 30, 0.35);
+}
+.cp-samuel .cp-marco::before,
+.cp-samuel .cp-marco::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 12px;
+  background: repeating-linear-gradient(180deg, #f1e8da 0 9px, transparent 9px 19px);
+  border-radius: 2px;
+  opacity: 0.85;
+}
+.cp-samuel .cp-marco::before { left: 9px; }
+.cp-samuel .cp-marco::after { right: 9px; }
+.cp-samuel .cp-marco.sin-carta .cp-aviso { color: #f1e8da; }
+.cp-samuel .cp-gl { color: #b08c50; opacity: 0.65; font-size: 1rem; line-height: 1; }
+.cp-samuel .g1 { top: 16px; left: 22px; }
+.cp-samuel .g2 { bottom: 18px; right: 22px; }
+
+/* ===== Cartitas: ajustes para celulares pequeños ===== */
+@media (max-width: 480px) {
+  .cartas { padding: 18px 10px 30px; }
+  .cp-karen .cp-lapiz, .cp-karen .cp-libro { width: 28px; }
+  .cp-santiago .cp-barco { width: 32px; }
+  .cp-santiago .cp-sol { width: 44px; height: 44px; }
+  .cp-samuel .cp-marco { padding: 10px 24px; }
+  .cp-samuel .cp-marco::before, .cp-samuel .cp-marco::after { width: 10px; }
+  .cp-samuel .cp-marco::before { left: 7px; }
+  .cp-samuel .cp-marco::after { right: 7px; }
+  .cs-btn { padding: 11px 24px; }
+}
+
+/* ===== Cartitas: movimiento reducido (todo se ve de inmediato, sin animaciones) ===== */
+@media (prefers-reduced-motion: reduce) {
+  .cs-linea1, .cs-linea2, .cs-adorno { opacity: 1; filter: none; transform: none; }
+  .cs-aparece { opacity: 1; visibility: visible; }
 }

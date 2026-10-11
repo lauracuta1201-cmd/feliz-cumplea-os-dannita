@@ -11,9 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Quicksand:wght@400;500;600&family=VT323&display=swap"
         rel="stylesheet">
-    <!-- El número ?v=4 evita que GitHub Pages / el navegador muestren una versión vieja.
-         Cada vez que subas cambios, súbelo (?v=5, ?v=6...) en esta línea y en la del script. -->
-    <link rel="stylesheet" href="styles.css?v=4">
+    <!-- El número ?v=5 evita que GitHub Pages / el navegador muestren una versión vieja.
+         Cada vez que subas cambios, súbelo (?v=6, ?v=7...) en esta línea y en la del script. -->
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 <body>
@@ -521,7 +521,180 @@
         </section>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <!-- ===================== PANTALLA 6 (NUEVA): CARTITAS DE LOS AMIGOS ===================== -->
+    <!--
+      Aparece después de tu carta larga (botón «Continuar ♡» del cierre de la carta)
+      y termina con el botón «♡ Volver al video», que abre la pantalla del video que ya existe.
+
+      IMÁGENES DE LAS CARTAS (carpeta "images", junto a index.html):
+        images/carta-karen.png
+        images/carta-amiga-pueblo.png
+        images/carta-santiago.png
+        images/carta-samuel.png
+      Si tus archivos tienen otro nombre o extensión (.jpg, .jpeg...), cambia el "src" de cada <img>
+      (busca los comentarios «CAMBIA AQUÍ»). En GitHub las mayúsculas y minúsculas deben coincidir EXACTAMENTE.
+      Las imágenes se muestran completas, sin recortarlas ni deformarlas.
+    -->
+    <div class="pantalla pantalla-cartas oculta" id="pantalla-cartas" hidden inert aria-hidden="true">
+        <div class="cartas" id="cartas">
+
+            <h2 class="sr-only" id="cartas-titulo-sr" tabindex="-1">Cartitas para Dannita</h2>
+
+            <!-- ========== 0. TRANSICIÓN: «Pero yo no soy la única…» ========== -->
+            <section class="cs cs-intro" data-auto="10000" aria-label="Introducción a las cartitas">
+                <div class="cs-texto">
+                    <p class="cs-linea1" data-foco tabindex="-1">Pero yo no soy la única que tiene algo que decirte…</p>
+                    <p class="cs-linea2">Hay personas que también quisieron dejarte un pedacito de su corazón. 💌</p>
+                    <div class="cs-adorno" aria-hidden="true">✿ ♡ ✿</div>
+                    <button type="button" class="cs-btn cs-btn-sec cs-aparece" data-ir="siguiente">Continuar ♡</button>
+                </div>
+            </section>
+
+            <!-- ========== 1. TÍTULO DE LA SECCIÓN ========== -->
+            <section class="cs cs-titulo" data-auto="4600" aria-label="Cartitas para Dannita">
+                <div class="cs-portada">
+                    <svg class="cs-sobre-ico" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+                        <rect x="4" y="6" width="56" height="36" rx="4" />
+                        <path d="M5 9 L32 29 L59 9" />
+                        <path d="M5 41 L24 24 M59 41 L40 24" />
+                    </svg>
+                    <h2 class="cs-portada-titulo" data-foco tabindex="-1">Cartitas para Dannita ♡</h2>
+                    <div class="cs-adorno" aria-hidden="true">✦ ♡ ✦</div>
+                    <button type="button" class="cs-btn cs-btn-sec cs-aparece" data-ir="siguiente">Ver las cartitas ♡</button>
+                </div>
+            </section>
+
+            <!-- ========== 2. CARTA DE KAREN (amistad de la universidad) ========== -->
+            <section class="cs cs-carta" aria-labelledby="cp-t-karen">
+                <div class="cp-hoja cp-karen">
+                    <!-- Detalles muy sutiles: flores, lápiz y libro -->
+                    <span class="cp-deco cp-flor cp-f1" aria-hidden="true">✿</span>
+                    <span class="cp-deco cp-flor cp-f2" aria-hidden="true">❀</span>
+                    <svg class="cp-deco cp-lapiz" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                        <path d="M8 40 L11 29 L33 7 L41 15 L19 37 Z M29 11 L37 19" />
+                    </svg>
+                    <svg class="cp-deco cp-libro" viewBox="0 0 48 40" aria-hidden="true" focusable="false">
+                        <path d="M24 8 C18 4 10 4 4 6 V32 C10 30 18 30 24 34 C30 30 38 30 44 32 V6 C38 4 30 4 24 8 Z M24 8 V34" />
+                    </svg>
+
+                    <header class="cp-cabecera">
+                        <h2 class="cp-titulo" id="cp-t-karen" data-foco tabindex="-1">Una cartita de Karen ♡</h2>
+                        <p class="cp-frase">Porque hay amistades que nacen entre clases, risas, días de universidad y momentos que terminan convirtiéndose en recuerdos para siempre.</p>
+                    </header>
+
+                    <figure class="cp-carta">
+                        <div class="cp-marco">
+                            <!-- IMAGEN DE LA CARTA: CAMBIA AQUÍ el nombre del archivo si es distinto -->
+                            <img src="images/CARTA-1.jpeg" alt="Carta de Karen para Dannita" decoding="async">
+                            <p class="cp-aviso">La carta de Karen aparecerá aquí ♡</p>
+                        </div>
+                    </figure>
+
+                    <button type="button" class="cs-btn cp-btn" data-ir="siguiente">Siguiente carta →</button>
+                </div>
+            </section>
+
+            <!-- ========== 3. CARTA DE LA AMIGA DEL PUEBLO (amistad de muchos años) ========== -->
+            <section class="cs cs-carta" aria-labelledby="cp-t-pueblo">
+                <div class="cp-hoja cp-pueblo">
+                    <!-- Detalles: fotos antiguas, flores y corazones pequeños -->
+                    <span class="cp-deco cp-vieja v1" aria-hidden="true"></span>
+                    <span class="cp-deco cp-vieja v2" aria-hidden="true"></span>
+                    <span class="cp-deco cp-flor cp-f1" aria-hidden="true">❀</span>
+                    <span class="cp-deco cp-flor cp-f2" aria-hidden="true">✿</span>
+                    <span class="cp-deco cp-flor cp-c1" aria-hidden="true">♡</span>
+                    <span class="cp-deco cp-flor cp-c2" aria-hidden="true">♡</span>
+
+                    <header class="cp-cabecera">
+                        <h2 class="cp-titulo" id="cp-t-pueblo" data-foco tabindex="-1">Una cartita de alguien que te conoce desde hace años ♡</h2>
+                        <p class="cp-frase">Hay amistades que crecen contigo y que, aunque pase el tiempo y la vida cambie, siguen teniendo un lugar muy especial.</p>
+                    </header>
+
+                    <figure class="cp-carta">
+                        <div class="cp-marco">
+                            <i class="cp-rincon rc1" aria-hidden="true"></i>
+                            <i class="cp-rincon rc2" aria-hidden="true"></i>
+                            <i class="cp-rincon rc3" aria-hidden="true"></i>
+                            <i class="cp-rincon rc4" aria-hidden="true"></i>
+                            <!-- IMAGEN DE LA CARTA: CAMBIA AQUÍ el nombre del archivo si es distinto -->
+                            <img src="images/CARTA-2.jpeg" alt="Carta de una amiga de toda la vida para Dannita" decoding="async">
+                            <p class="cp-aviso">La carta aparecerá aquí ♡</p>
+                        </div>
+                    </figure>
+
+                    <button type="button" class="cs-btn cp-btn" data-ir="siguiente">Siguiente carta →</button>
+                </div>
+            </section>
+
+            <!-- ========== 4. CARTA DE SANTIAGO (mar, viaje, atardecer) ========== -->
+            <section class="cs cs-carta" aria-labelledby="cp-t-santiago">
+                <div class="cp-hoja cp-santiago">
+                    <!-- Detalles: sol de atardecer, barco y olas -->
+                    <span class="cp-deco cp-sol" aria-hidden="true"></span>
+                    <svg class="cp-deco cp-barco" viewBox="0 0 48 44" aria-hidden="true" focusable="false">
+                        <path d="M24 4 V30 M24 6 L40 26 H24 M24 10 L10 26 H24 M6 32 H42 L36 40 H12 Z" />
+                    </svg>
+                    <svg class="cp-deco cp-olas" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                        <path class="ola1" d="M0 24 C50 8 100 40 150 24 C200 8 250 40 300 24 C350 8 400 40 400 24 V60 H0 Z" />
+                        <path class="ola2" d="M0 36 C60 22 110 50 170 36 C230 22 280 50 340 36 C370 30 390 34 400 36 V60 H0 Z" />
+                    </svg>
+
+                    <header class="cp-cabecera">
+                        <h2 class="cp-titulo" id="cp-t-santiago" data-foco tabindex="-1">Una cartita de Santiago ♡</h2>
+                        <p class="cp-frase">Porque algunas personas llegan a nuestra vida, comparten una parte del camino y encuentran una bonita forma de quedarse.</p>
+                    </header>
+
+                    <figure class="cp-carta">
+                        <div class="cp-marco">
+                            <!-- IMAGEN DE LA CARTA: CAMBIA AQUÍ el nombre del archivo si es distinto -->
+                            <img src="images/CARTA-3.jpeg" alt="Carta de Santiago para Dannita" decoding="async">
+                            <p class="cp-aviso">La carta de Santiago aparecerá aquí ♡</p>
+                        </div>
+                    </figure>
+
+                    <button type="button" class="cs-btn cp-btn" data-ir="siguiente">Siguiente carta →</button>
+                </div>
+            </section>
+
+            <!-- ========== 5. CARTA DE SAMUEL (sencilla, elegante, nostálgica) ========== -->
+            <section class="cs cs-carta" aria-labelledby="cp-t-samuel">
+                <div class="cp-hoja cp-samuel">
+                    <!-- Detalles: marco de rollo fotográfico y brillos dorados -->
+                    <span class="cp-deco cp-gl g1" aria-hidden="true">✦</span>
+                    <span class="cp-deco cp-gl g2" aria-hidden="true">✦</span>
+
+                    <header class="cp-cabecera">
+                        <h2 class="cp-titulo" id="cp-t-samuel" data-foco tabindex="-1">Una cartita de Samuel ♡</h2>
+                        <p class="cp-frase">Y porque algunos caminos cambian de rumbo, pero ciertos recuerdos y amistades siguen teniendo un lugar especial.</p>
+                    </header>
+
+                    <figure class="cp-carta">
+                        <div class="cp-marco">
+                            <!-- IMAGEN DE LA CARTA: CAMBIA AQUÍ el nombre del archivo si es distinto -->
+                            <img src="images/CARTA-4.jpeg" alt="Carta de Samuel para Dannita" decoding="async">
+                            <p class="cp-aviso">La carta de Samuel aparecerá aquí ♡</p>
+                        </div>
+                    </figure>
+
+                    <button type="button" class="cs-btn cp-btn" data-ir="siguiente">Última carta →</button>
+                </div>
+            </section>
+
+            <!-- ========== 6. MENSAJE FINAL + VOLVER AL VIDEO ========== -->
+            <section class="cs cs-final" aria-label="Mensaje final">
+                <div class="cs-texto">
+                    <p class="cs-linea1" data-foco tabindex="-1">Y estas son solo algunas de las personas que tienen un pedacito de ti en su corazón. ♡</p>
+                    <p class="cs-linea2">Espero que nunca olvides lo querida que eres para todas las personas que han tenido la suerte de conocerte.</p>
+                    <div class="cs-adorno" aria-hidden="true">✿ ♡ ✿</div>
+                    <!-- Este botón abre la pantalla del video que ya existe (no se duplica el video) -->
+                    <button type="button" class="cs-btn cs-aparece" id="cs-volver-video">♡ Volver al video</button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="script.js?v=5"></script>
 </body>
 
 </html>

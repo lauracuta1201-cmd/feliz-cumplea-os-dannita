@@ -1,11 +1,13 @@
 /*
-  ESTRUCTURA DEL PROYECTO (una sola página con cinco pantallas que se cambian con fundido):
+  ESTRUCTURA DEL PROYECTO (una sola página con seis pantallas que se cambian con fundido):
   1) Carta:    portada, sobre y carta.
   2) Álbum:    fotografías en marcos Polaroid.
   3) Libro:    libro de recuerdos (se abre desde el botón «Abrir nuestro libro» del álbum).
   4) Cinta VHS: última sorpresa (se abre desde «Ver mi última sorpresa ♡», al final del libro).
-  5) Secreto:  pantalla de clave + libro de la dedicatoria (aparece al terminar el video
+  5) Secreto:  pantalla de clave + tu carta larga (aparece al terminar el video
                o al pulsar «Saltar video ♡»).
+  6) Cartitas: cartas de los amigos (aparece desde «Continuar ♡» al final de tu carta larga)
+               y termina con «♡ Volver al video», que abre de nuevo la pantalla 4.
   Las pantallas inactivas se retiran con el atributo "hidden" para que nunca
   cubran ni bloqueen toques.
 */
@@ -806,9 +808,8 @@
   PANTALLA 5 · UN ÚLTIMO SECRETO (después del video):
   - Al terminar el video, o al pulsar «Saltar video ♡», transición suave hacia la pantalla de clave.
   - Clave de 4 dígitos (2608).
-  - Libro con una sola dedicatoria larga que se divide sola en páginas
-    y se "escribe" poco a poco.
-  No modifica nada del bloque anterior.
+  - Tu carta larga se divide sola en páginas y se "escribe" poco a poco.
+  - Al final de la carta, el botón «Continuar ♡» abre las cartitas de los amigos (pantalla 6).
 */
 (function () {
     'use strict';
@@ -816,40 +817,21 @@
     // ====== CONFIGURACIÓN ======
     const CLAVE = '2608'; // 26 de agosto
 
-    // ====== TU DEDICATORIA ======
-    // Separa los párrafos con una línea en blanco. Los [MARCADORES] salen resaltados
-    // para que los encuentres fácil; bórralos (con los corchetes) cuando escribas lo tuyo.
-    const TEXTO = `Mi querida Dannita,
+    // ====== TU CARTA ======
+    // Texto EXACTO escrito por ti (no se corrigió nada).
+    // Separa los párrafos con una línea en blanco. Si algún día quieres resaltar una parte
+    // para encontrarla fácil, ponla entre [CORCHETES]: saldrá marcada hasta que los borres.
+    const TEXTO = `Mi Dannita hermosa quiero decirte que a pesar de que ya se que esto no estuvo listo para el día de tu cumpleaños quiero decirte que espero te guste mucho porque va con mucho cariño para ti... Mi Dannita siempre desde que te conocí has sido esa amistad que siempre esta para mi nunca me ha dejado a pesar de la distancia de todo... cuando recuerdo como nos conocimos recuerdo en que lo que mas me llamo la atención fue tu sonrisa porque yo también soy así con una personalidad que nos permite reír a pesar de todo, también se que eres una persona muy fuerte y eso admiro mucho de ti, tienes unas cualidades que hace que yo te considere una persona tan especial para mi. No se como explicarte que tu llegaste a mi vida de una forma tan especial que Dios te mando para que recordara que los angelitos también llegan de formas inesperadas y que tu llegaste a mi vida para ser un apoyo incondicional que nunca me ha decepcionado y a pesar de los errores que tal vez he cometido contigo tu siempre estas ahí sin importar que, eres aquella que siempre da todo de si a pesar de las circunstancias a pesar de todo.
 
-Hoy es tu cumpleaños y quise cerrar este regalo de la forma más sincera que sé: hablándote directo, sin adornos y sin prisa. Así que ponte cómoda, respira, y léeme despacito, porque todo lo que viene lo escribí pensando en ti.
+Dannita quiero que siempre recuerdes la mujer tan valiosa que eres tu en serio eres una persona tan especial que yo nunca quisiera perder y que sabes que siempre cuentas con todo mi apoyo incondicional.
 
-Primero quiero decirte algo que quizá no repito lo suficiente: te quiero muchísimo. No te quiero por costumbre ni por compromiso. Te quiero porque contigo puedo ser yo misma, sin explicarme demasiado y sin fingir nada. Eso, en esta vida, vale más de lo que se puede escribir.
+Aunque últimamente no hemos compartido mucho ni hemos podido salir, tu sabes que conmigo cuentas siempre ante cualquier emergencia o lo que necesites ahí voy a estar, que tu sabes que mi casa es tu casa y cuando lo necesites aquí puedes llegar, hace ya prácticamente 2 años que nos conocimos y gracias a Dios que así paso porque no hubiera querido otra mejor amiga sino solo tu, a la que llaman mi hermana en la calle, que la verdad de me hace lo mas lindo del mundo porque no quisiera que me dijeran lo mismo por alguien mas, Dannita gracias por ser quien eres gracias por esa personalidad tan única tuya, por confiar en mi y pasar cada choco aventura posible, que sin importar que siempre estas ahí conmigo.
 
-Hay personas que pasan y personas que se quedan, y tú te quedaste en el lugar más bonito: en las cosas pequeñas de mis días. Cuando algo me alegra, tu nombre es de los primeros que se me vienen a la mente para contárselo. Y cuando algo me pesa, también.
+Mira que últimamente he pensado en tu futuro y sea lo que sea que pienses hacer espero que tu hagas lo que tu quieres hacer he orado mucho por ti porque tengas claro ya que quieres hacer y que realmente sea tu sueño que realmente sea lo que Danna quiere hacer y que sepas que a la final lo que termines haciendo sepas que cuentas con todo mi apoyo aquí y siempre que si sigues en matemáticas o si vas para enfermería o si vas para medicina que me encantaría para ti, me encantaría. Dannita esta es tu vida y lo que te demore se que podrás hacer lo que tu realmente quieras ser.
 
-Si me pidieran describirte en una sola palabra, me quedaría corta. Pero hay un nombre que solo yo uso contigo, [AQUÍ ESCRIBE UN APODO CARIÑOSO QUE USAS CON ELLA], y cada vez que lo digo siento que dice más que cualquier discurso.
+Mi Dannita sabes que yo te quiero demasiado tu tienes un pedacito de mi corazón y muy grande porque eres tu y solo tu, mi Dannita quiero que me perdones si en algún momento te hice sentir mal o cualquier cosa tu eres tan importante en mi vida, siempre he sido una persona muy cerrada pero gracias a ti he podido confiarte tanto que agradezco por eso, Dios quiera que sigamos siendo así por muchísimos años mas estés donde estés sabes que cuentas siempre conmigo.
 
-Quiero darte las gracias. Gracias por escucharme cuando ni yo sé cómo empezar, por quedarte cuando hubiera sido más fácil irte, por reírte conmigo hasta de lo que no tiene gracia. Gracias por ser constante, por ser tú. Hay días en que solo saber que estás ahí me alivia el corazón, y nunca te lo había dicho así de claro.
-
-Cuando pienso en los recuerdos que hemos construido, me doy cuenta de que ninguno fue pequeño. Hasta los momentos más simples, esos en los que no pasaba nada especial, se volvieron especiales porque estabas tú. [AQUÍ AGREGA UN RECUERDO ESPECIAL DE LAS DOS] Ese momento, y todos los que no caben en esta carta, los guardo como se guardan las cosas que uno no quiere perder.
-
-Hay algo que admiro profundamente de ti: [AQUÍ CUENTA ALGO QUE ADMIRAS DE ELLA]. Te lo digo porque muchas veces uno admira en silencio, y hoy no quería quedarme callada. Eres una de esas personas que enseñan sin darse cuenta, y yo aprendo mucho solo con verte ser tú.
-
-Lo más bonito es que todavía nos quedan muchísimos por vivir. Quiero seguir sumando días contigo: los buenos para celebrarlos, y los difíciles para atravesarlos juntas. Porque una amistad de verdad no se mide por lo fácil que es estar, sino por lo bonito que es quedarse.
-
-Y ahora sí, mis deseos para ti. Deseo que este nuevo año de vida te encuentre tranquila, con el corazón ligero y la cabeza llena de ilusiones. Deseo que cada meta que te propongas se acomode a tu favor, que tengas paciencia para los procesos y valentía para los comienzos. Deseo que te rodees siempre de gente que te cuide tanto como te mereces.
-
-Que nunca dudes de lo que vales. A veces uno no se ve con los mismos ojos con que lo ven los demás, y quisiera prestarte los míos un día para que veas lo increíble que eres. Que cuando el camino se ponga cuesta arriba recuerdes que tienes a alguien que cree en ti, incluso en los días en que tú no puedes.
-
-También deseo que nuestra amistad conserve su valor con el paso del tiempo. Que los años no la enfríen, que la distancia, si algún día llega, no la achique, y que las ocupaciones no nos roben las ganas de buscarnos. Que dentro de mucho tiempo podamos mirar atrás, reírnos de todo lo que hemos vivido y darnos cuenta de que seguimos igual de cerca.
-
-Hoy quiero prometerte algo: [AQUÍ AGREGA ALGO QUE QUIERES PROMETERLE]. Lo digo con todo el corazón, porque lo que se promete de verdad a una amiga como tú se cumple y se queda para siempre.
-
-Si algún día se te olvida, vuelve a esta carta: aquí queda escrito que eres importante, que eres querida y que nunca estás sola. Que tu cumpleaños sea tan lindo como lo eres tú, con risas de esas que duelen la barriga y abrazos de esos que se quedan.
-
-Gracias por existir, Dannita. Gracias por ser mi amiga. Te quiero hoy, te querré mañana y te querré cuando pasen los años.
-
-Con todo mi amor, Lauu ♡`;
+Te amoo mi Dannita hermosa ♡`;
 
     // ====== Referencias al proyecto existente ======
     const pantallaVHS = document.getElementById('pantalla-vhs');
@@ -901,6 +883,8 @@ Con todo mi amor, Lauu ♡`;
             <p class="ded-cierre-fel">¡Feliz cumpleaños, Dannita!</p>
             <p class="ded-cierre-con">Y si algún día olvidas lo mucho que te quiero, vuelve a leer estas palabras. Siempre habrá un pedacito de mí en ellas. ♡</p>
             <button type="button" class="ded-btn sec" id="ded-releer">Leer de nuevo ♡</button>
+            <!-- NUEVO: sigue hacia las cartitas de los amigos -->
+            <button type="button" class="ded-btn" id="ded-cartitas">Continuar ♡</button>
           </div>
         </div>
         <div class="ded-pie" id="ded-pie">
@@ -923,6 +907,7 @@ Con todo mi amor, Lauu ♡`;
     const wrap = $('ded-wrap'), libro = $('ded-libro'), hoja = $('ded-hoja'), texto = $('ded-texto');
     const num = $('ded-num'), pie = $('ded-pie');
     const btnCont = $('ded-continuar'), btnPrev = $('ded-prev'), ind = $('ded-ind'), btnReleer = $('ded-releer');
+    const btnCartitas = $('ded-cartitas');
 
     // Hoja invisible para medir cuánto texto cabe en cada página
     const medida = hoja.cloneNode(true);
@@ -980,6 +965,11 @@ Con todo mi amor, Lauu ♡`;
 
         esperar(() => {
             pantallaVHS.hidden = true;
+
+            // Desde aquí el video queda como pieza final: sin botón de saltar y sin volver a la clave
+            const seccionVHS = document.getElementById('vhs');
+            if (seccionVHS) seccionVHS.classList.add('vhs-final');
+
             reiniciarBloqueo();
             mostrar(pantalla);
             activo = true;
@@ -991,6 +981,7 @@ Con todo mi amor, Lauu ♡`;
 
     // El video terminó: tras una breve pausa pasa a la pantalla de la clave
     function alTerminarVideo() {
+        if (activo) return; // ya se pasó por la clave: el video solo se puede ver otra vez
         if (finProgramado) return;
         finProgramado = true;
         clearTimeout(temporizadorFin);
@@ -1289,6 +1280,12 @@ Con todo mi amor, Lauu ♡`;
         setTimeout(() => mostrarPagina(0, true), reducir.matches ? 0 : 500);
     });
 
+    // NUEVO: «Continuar ♡» abre las cartitas de los amigos (las maneja el bloque siguiente de este archivo)
+    btnCartitas.addEventListener('click', () => {
+        libroListo = false; // tu carta ya terminó: se detienen sus atajos y el repaginado
+        document.dispatchEvent(new CustomEvent('dannita:abrir-cartitas'));
+    });
+
     // ====== Cambio de tamaño: volver a paginar solo si la hoja cambió de medida ======
     let tRedim = null;
     window.addEventListener('resize', () => {
@@ -1309,4 +1306,180 @@ Con todo mi amor, Lauu ♡`;
             mostrarPagina(nuevo, false);
         }, 250);
     });
+})();
+
+/*
+  PANTALLA 6 (NUEVA) · CARTITAS DE LOS AMIGOS:
+  - Se abre cuando, al final de tu carta, se pulsa «Continuar ♡».
+  - Orden: «Pero yo no soy la única…» → «Cartitas para Dannita ♡» → Karen → amiga del pueblo
+           → Santiago → Samuel → mensaje final → «♡ Volver al video».
+  - «♡ Volver al video» abre la pantalla del video que ya existe (no se duplica el video).
+  - Las imágenes de las cartas se escriben en index.html (busca «CAMBIA AQUÍ»).
+  No modifica nada de los bloques anteriores.
+*/
+(function () {
+    'use strict';
+
+    const pantallaCartas = document.getElementById('pantalla-cartas');
+    const pantallaVHS = document.getElementById('pantalla-vhs');
+    if (!pantallaCartas || !pantallaVHS) return;
+
+    const reducir = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const DURACION = 800;         // igual que --duracion-pantalla
+    const CAMBIO_SLIDE = 650;     // fundido entre una página y otra de esta sección
+
+    const slides = Array.from(pantallaCartas.querySelectorAll('.cs'));
+    const botonVolverVideo = document.getElementById('cs-volver-video');
+
+    let visible = false;          // la pantalla de las cartitas está visible
+    let transicion = false;       // cambio de pantalla en curso
+    let cambiando = false;        // cambio de página en curso
+    let indice = 0;               // página actual
+    let temporizadores = [];      // avance automático pendiente
+
+    // ====== Utilidades de pantallas (mismo patrón de fundido del resto del proyecto) ======
+    function ocultarP(p) {
+        p.classList.add('oculta');
+        p.inert = true;
+        p.setAttribute('aria-hidden', 'true');
+    }
+    function mostrarP(p) {
+        p.hidden = false;
+        p.inert = false;
+        p.removeAttribute('aria-hidden');
+        void p.offsetWidth;
+        p.classList.remove('oculta');
+    }
+    function esperar(fn) { setTimeout(fn, reducir.matches ? 0 : DURACION); }
+
+    function esperarCartas(fn, ms) {
+        temporizadores.push(setTimeout(fn, ms));
+    }
+    function limpiarTemporizadores() {
+        temporizadores.forEach((id) => clearTimeout(id));
+        temporizadores = [];
+    }
+
+    // ====== Imágenes de las cartas: si falta un archivo, se muestra un aviso discreto ======
+    pantallaCartas.querySelectorAll('.cp-marco img').forEach((img) => {
+        const marcar = () => {
+            const marco = img.closest('.cp-marco');
+            if (marco) marco.classList.add('sin-carta');
+        };
+        img.addEventListener('error', marcar);
+        if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) marcar();
+    });
+
+    // ====== Páginas de esta sección ======
+    function mostrarSlide(i) {
+        limpiarTemporizadores();
+        indice = i;
+
+        slides.forEach((s, k) => {
+            s.classList.remove('saliendo');
+            s.classList.toggle('activa', k === i);
+        });
+        pantallaCartas.scrollTop = 0;
+
+        const actual = slides[i];
+        const foco = actual.querySelector('[data-foco]');
+        if (foco) foco.focus({ preventScroll: true });
+
+        // Páginas con avance automático (la transición y el título de la sección)
+        const auto = Number(actual.dataset.auto) || 0;
+        if (auto) {
+            esperarCartas(() => irA(i + 1), reducir.matches ? Math.min(auto, 7000) : auto);
+        }
+    }
+
+    function irA(i) {
+        if (!visible || cambiando || i < 0 || i >= slides.length) return;
+        cambiando = true;
+        limpiarTemporizadores();
+        slides[indice].classList.add('saliendo');
+
+        setTimeout(() => {
+            cambiando = false;
+            if (visible) mostrarSlide(i);
+        }, reducir.matches ? 0 : CAMBIO_SLIDE);
+    }
+
+    function reiniciarCartas() {
+        limpiarTemporizadores();
+        slides.forEach((s) => s.classList.remove('activa', 'saliendo'));
+        indice = 0;
+        cambiando = false;
+    }
+
+    // ====== Tu carta → Cartitas ======
+    function abrirCartitas() {
+        const pantallaCarta = document.getElementById('pantalla-dedicatoria');
+        if (transicion || visible || !pantallaCarta) return;
+        transicion = true;
+
+        ocultarP(pantallaCarta);
+        esperar(() => {
+            pantallaCarta.hidden = true;
+
+            reiniciarCartas();
+            mostrarP(pantallaCartas);
+            pantallaCartas.scrollTop = 0;
+            visible = true;
+            transicion = false;
+            mostrarSlide(0);
+        });
+    }
+
+    // ====== Cartitas → Video (la pantalla del video que ya existe) ======
+    // Se deja el video listo en la portada con el botón ▶ (sin repetir el mensaje ni la cinta)
+    function prepararVideo() {
+        const vhs = document.getElementById('vhs');
+        const reproductor = document.getElementById('vhs-reproductor');
+        const cinta = document.getElementById('vhs-cinta');
+        const pantallaVideo = document.getElementById('vhs-pantalla');
+        const video = document.getElementById('vhs-video');
+        const repetir = document.getElementById('vhs-repetir');
+        if (!vhs) return;
+
+        vhs.dataset.fase = 'reproductor';
+        vhs.classList.add('vhs-lista', 'vhs-final');
+        if (reproductor) reproductor.classList.add('vhs-activa-rep');
+        if (cinta) cinta.classList.remove('activa', 'cubriendo', 'cubierta', 'revelando');
+        if (pantallaVideo) pantallaVideo.classList.remove('reproduciendo');
+        if (repetir) repetir.hidden = true;
+        if (video) {
+            try { video.pause(); } catch (e) { /* sin acción */ }
+            try { video.currentTime = 0; } catch (e) { /* sin metadatos todavía */ }
+        }
+    }
+
+    function volverAlVideo() {
+        if (transicion || !visible) return;
+        transicion = true;
+        limpiarTemporizadores();
+
+        ocultarP(pantallaCartas);
+        esperar(() => {
+            pantallaCartas.hidden = true;
+            visible = false;
+
+            prepararVideo();
+            mostrarP(pantallaVHS);
+            pantallaVHS.scrollTop = 0;
+            transicion = false;
+
+            const play = document.getElementById('vhs-play');
+            if (play) play.focus({ preventScroll: true });
+        });
+    }
+
+    // ====== Eventos ======
+    // Botones «Continuar ♡», «Siguiente carta →» y «Última carta →»
+    pantallaCartas.querySelectorAll('[data-ir="siguiente"]').forEach((b) => {
+        b.addEventListener('click', () => irA(indice + 1));
+    });
+    if (botonVolverVideo) botonVolverVideo.addEventListener('click', volverAlVideo);
+
+    // Lo envía el botón «Continuar ♡» del final de tu carta larga
+    document.addEventListener('dannita:abrir-cartitas', abrirCartitas);
 })();
