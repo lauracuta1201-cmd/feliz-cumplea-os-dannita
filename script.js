@@ -1,16 +1,4 @@
-/*
-  ESTRUCTURA DEL PROYECTO (una sola página con seis pantallas que se cambian con fundido):
-  1) Carta:    portada, sobre y carta.
-  2) Álbum:    fotografías en marcos Polaroid.
-  3) Libro:    libro de recuerdos (se abre desde el botón «Abrir nuestro libro» del álbum).
-  4) Cinta VHS: última sorpresa (se abre desde «Ver mi última sorpresa ♡», al final del libro).
-  5) Secreto:  pantalla de clave + tu carta larga (aparece al terminar el video
-               o al pulsar «Saltar video ♡»).
-  6) Cartitas: cartas de los amigos (aparece desde «Continuar ♡» al final de tu carta larga)
-               y termina con «♡ Volver al video», que abre de nuevo la pantalla 4.
-  Las pantallas inactivas se retiran con el atributo "hidden" para que nunca
-  cubran ni bloqueen toques.
-*/
+
 
 (function () {
     'use strict';
